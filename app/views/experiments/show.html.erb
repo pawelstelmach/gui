@@ -1,0 +1,148 @@
+<% title @experiment.name %>
+<p>
+	<div id="pokaz_kompozycje">
+		<h2><%= link_to "Prezentacja działania", "#", :id => "toogle_tutorial", :style => "text-decoration:none; color: #000000;" %></h2>
+		<div id="tutorial" style="text-align:center;"></div>
+	</div>
+</p>
+<br/>
+<%= link_to "Edycja", edit_experiment_path(@experiment) %> |
+<%= link_to "XML", experiment_path(@experiment, :format => :xml), :target => :blank %> |
+<%= link_to_remote "Uruchom",
+  :url => run_experiment_path(@experiment),
+  :html => { :id => "run_#{@experiment.id}" },          
+  :loading => "$('run_#{@experiment.id}').innerHTML = 'Czekaj...'"
+%> |
+<%= link_to "Usuń", @experiment, :method => :delete, :confirm => 'Jesteś pewien?' %>
+
+<br/><br/>
+
+<div class="fieldset_columns" style="height:7em;">
+<div class="fieldset_left_narrow">
+<fieldset>
+  <legend><strong>Wymagania funkcjonalne</strong></legend>
+  <p>Wymagania: <%=link_to "#{@experiment.sla.name}", edit_sla_path( @experiment.sla ), :target => :blank %> | <%=link_to "Pokaż xml", sla_path( @experiment.sla, :format => :xml ), :target => :blank %></p>  
+	<%= link_to "Pokaż parametry", "#", :id => "toogle_params" %>
+</fieldset>
+</div>
+<div class="fieldset_right_narrow">
+<fieldset>
+  <legend><strong>Wymagania niefunkcjonalne</strong></legend>
+  <p>Koszt: <%= @experiment.ograniczenie_cost %> zł z wagą <%= @experiment.waga_cost %></p>
+  <p>Czas: <%= @experiment.ograniczenie_time %> s z wagą <%= @experiment.waga_time %></p>
+</fieldset>
+</div>
+</div>
+<br/>
+<div id="hid_params">
+<fieldset>
+  <legend><strong>Parametry sterujące</strong></legend>
+  <p>
+    Maksymalna liczba wersji usług: <%=h @experiment.max_kandydatow %><br/>
+    <span class="hint">Maksymalna liczba usług przekazywana jako kandydaci do realizacji pojedynczego zadania procesu złożonego.</span>
+  </p>
+  <p>
+    Liczba poszukiwanych planów sąsiednich: <%=h @experiment.iteracji_planow_sasiednich %><br/>
+    <span class="hint">Maksymalna liczba iteracji algorytmu heurystycznego poszukującego planów sąsiednich do aktualnego planu wykonania usługi złożonej</span>
+  </p>
+  <p>
+    Liczba powtórzeń kroku: <%=h @experiment.iteracji_alg_h %><br/>
+    <span class="hint">Parametr umożliwiający uśrednienie kompozycji, jeśli w algorytmach narzędzia wykorzystywana jest losowość</span>
+  </p>
+  <p>
+    Stopień podobieństwa: <%=h @experiment.podobienstwo %><br/>
+    <span class="hint">Jest to dopuszczalny (minimalny) stopień podobieństwa pomiędzy konceptami wymagań.</span>
+  </p>
+</fieldset>
+<br/>
+
+<fieldset>
+  <legend><strong>Algorytm doboru usług</strong></legend>
+  <% filtry_dict = { 'exact_match' => 'filtr exact match (oryginalny)', 'plugin' => 'filtr plug-in match (oryginalny)', 'exact_match_2' => 'filtr exact match (dokładny)', 'plugin_2' => 'filtr plug-in match (dokładny)', 'exact_match_3' => 'filtr exact match (przybliżony)', 'plugin_3' => 'filtr plug-in match (przybliżony)' } %>
+  <p>Dla filtra: <%= filtry_dict[@experiment.algorytm_doboru_uslug] %></p>
+</fieldset>
+</div>
+<br/>
+<!-- <div>
+<%= link_to "Generuj raport szczegółowy", "#", :id => "toogle_raport" %> | 
+<%= link_to "Pokaż wynik w xml", "#", :id => "toogle_xml" %>
+<%= link_to "Estymuj bla bla bla", "#", :id => "toogle_opinion" %>
+
+</div> -->
+<strong>Ostatni wynik:</strong><br/>
+<div id="experiment_<%= @experiment.id %>_results"></div>
+
+
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#hid_params').hide();
+        $j('a#toogle_params').click(function() {
+          $j('#hid_params').slideToggle(400);
+			$j(this).text($j(this).text() == 'Pokaż parametry' ? 'Ukryj parametry' : 'Pokaż parametry');
+          return false;
+        });
+      });
+") %>
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#raport').hide();
+        $j('a#toogle_raport').click(function() {
+          $j('#raport').slideToggle(400);
+          return false;
+        });
+      });
+") %>
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#xml').hide();
+        $j('a#toogle_xml').click(function() {
+          $j('#xml').slideToggle(400);
+          return false;
+        });
+      });
+") %>
+
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#opinion').hide();
+        $j('a#toogle_opinion').click(function() {
+		if ($j('#opinion').is(':visible')!='true') {
+		  new Ajax.Updater('opinion', '/experiments/get_opinion?id=15', {asynchronous:false, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('NJOk3Ma2tSAZjoenLLjiOjkJGaeENX8Q0gq+mQkSBOY=')})
+        }
+		$j('#opinion').slideToggle(400);
+		  return false;
+        });
+      });
+") %>
+
+
+<script type="text/javascript">
+<% if @experiment.something_changes? %>
+    function show_chart(){
+        swfobject.embedSWF("/open-flash-chart.swf", "experiment_<%= @experiment.id %>_results", "936", "300", "9.0.0", "/expressInstall.swf",{"data-file": window.chart_path});
+    }
+    window.chart_path = '<%= experiment_path(@experiment, :format => :chart_data) %>';
+    <% if @experiment.done %>
+        show_chart();
+    <% else %>
+       $('experiment_<%= @experiment.id %>_results').update('Brak danych.');
+    <% end %>
+<% else %>
+    <% begin %>
+    <% rescue %>
+        $('experiment_<%= @experiment.id %>_results').update('Brak danych.');
+    <% else %>
+        $('experiment_<%= @experiment.id %>_results').update("<%= (render :partial => 'wynik').gsub(/\n/, '') %>");
+    <% end %>
+<% end %>
+</script>
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#tutorial').hide();
+		new Ajax.Updater('tutorial', '/pages/get_photo/0/Show_composition', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('r4Zxnv4m0jgTfZpMqpoj44hFkzxsmNd/8rRcGbkfoVw=')})
+        $j('a#toogle_tutorial').click(function() {
+		$j('#tutorial').slideToggle(400);
+		  return false;
+        });
+      });
+") %>

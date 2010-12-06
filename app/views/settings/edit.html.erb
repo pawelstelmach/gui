@@ -1,0 +1,78 @@
+<% title "Ustawienia" %>
+<div id="pokaz_kompozycje">
+		<h2><%= link_to "Prezentacja działania", "#", :id => "toogle_tutorial", :style => "text-decoration:none; color: #000000;" %></h2>
+		<div id="tutorial" style="text-align:center;"></div>
+	</div>
+<br/>
+<% semantic_form_for @settings do |e| %>
+    <%= e.error_messages %>
+<table style="margin-bottom: 0.5em">
+  <tr>
+  	<th>Nazwa parametru</th>
+    <th style="width:35%;">Wartość</th>
+    <th style="width:15%;">Widoczność</th>
+  </tr>
+  <tr style="background-color:<%=cycle('#FFF', '#EEE')%>;">
+  	<td><label title="Maksymalna liczba usług przekazywana jako kandydaci do realizacji pojedynczego zadania procesu złożonego" >Maksymalna liczba wersji usług</label></td>
+    <td><%= e.inputs :max_kandydatow, :class => 'simple_input' %></td>
+    <td style="text-align:center;">
+	<% e.inputs :class => "radio_buttons" do %>
+	<%= e.input :max_kandydatow_vis, :class => 'visibility', :as => :radio, :collection => [['widoczny','true'],['ukryty','false']] %>
+	<% end %></td>
+	</td>
+  </tr>
+    <tr style="background-color:<%=cycle('#FFF', '#EEE')%>;">
+  	<td><label title="Maksymalna liczba iteracji algorytmu heurystycznego poszukującego planów sąsiednich do aktualnego planu wykonania usługi złożonej">Liczba poszukiwanych planów sąsiednich</label></td>
+    <td><%= e.inputs :iteracji_planow_sasiednich, :class => 'simple_input' %></td>
+    <td style="text-align:center;">
+	<% e.inputs :class => "radio_buttons" do %>
+	<%= e.input :iteracji_planow_sasiednich_vis, :class => 'visibility', :as => :radio, :collection => [['widoczny','true'],['ukryty','false']] %>
+	<% end %></td>
+  </tr>
+    <tr style="background-color:<%=cycle('#FFF', '#EEE')%>;">
+  	<td><label title="Parametr umożliwiający uśrednienie kompozycji, jeśli w algorytmach narzędzia wykorzystywana jest losowość">Liczba powtórzeń kroku</label></td>
+    <td><%= e.inputs :iteracji_alg_h, :class => 'simple_input' %></td>
+    <td style="text-align:center;">
+	<% e.inputs :class => "radio_buttons" do %>
+	<%= e.input :iteracji_alg_h_vis, :class => 'visibility', :as => :radio, :collection => [['widoczny','true'],['ukryty','false']] %>
+	<% end %></td>
+  </tr>
+    <tr style="background-color:<%=cycle('#FFF', '#EEE')%>;">
+  	<td><label title="Jest to dopuszczalny (minimalny) stopień podobieństwa pomiędzy konceptami wymagań.">Stopień podobieństwa</label></td>
+    <td><%= e.inputs :podobienstwo, :class => 'simple_input' %></td>
+    <td style="text-align:center;"><%- e.inputs :class => "radio_buttons" do -%>
+	<%= e.input :podobienstwo_vis, :class => 'visibility', :as => :radio, :collection => [['widoczny','true'],['ukryty','false']] %>
+	<% end %></td>
+  </tr>
+  <tr id="hid_params" style="background-color:<%=cycle('#FFF', '#EEE')%>;width:100%;">
+  	<td><label title="Algorytm doboru usług">Algorytm doboru usług</label></td>
+    <td style="border-right:none;">
+    	<% e.inputs :class => 'simple_input' do %><%= e.input :algorytm_doboru_uslug,  :as => :select, :collection => [['filtr exact match (oryginalny)','exact_match'],['filtr plug-in match (oryginalny)','plugin'],['filtr exact match (dokładny)','exact_match_2'],['filtr plug-in match (dokładny)','plugin_2'],['filtr exact match (przybliżony)','exact_match_3'],['filtr plug-in match (przybliżony)','plugin_3']] %><% end %>
+    </td>
+	<td style="border-left:none;"><%= link_to "Opisy filtrów", "/filtry.html", :target => :blank %></td>
+  </tr>
+  
+</table>
+<%= link_to "Pokaż zaawansowane", "#", :id => "toogle_params" %>
+<%= e.buttons %>
+<% end %>
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#hid_params').hide();
+        $j('a#toogle_params').click(function() {
+          $j('#hid_params').slideToggle(1);
+			$j(this).text($j(this).text() == 'Pokaż zaawansowane' ? 'Ukryj zaawansowane' : 'Pokaż zaawansowane');
+          return false;
+        });
+      });
+") %>
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#tutorial').hide();
+		new Ajax.Updater('tutorial', '/pages/get_photo/0/Settings', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('r4Zxnv4m0jgTfZpMqpoj44hFkzxsmNd/8rRcGbkfoVw=')})
+        $j('a#toogle_tutorial').click(function() {
+		$j('#tutorial').slideToggle(400);
+		  return false;
+        });
+      });
+") %>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proces-zlozony>
+	<proces>
+		<pid>1</pid>
+		<child>2</child>
+		<input>osoba prywatna</input>
+		<input>usluga glosowa</input>
+		<output>usluga glosowa</output>
+		<output>sugerowana</output>
+	</proces>
+	<proces>
+		<pid>2</pid>
+		<input>usluga glosowa</input>
+		<output>usluga glosowa</output>
+		<output>wybrana</output>
+	</proces>
+</proces-zlozony>

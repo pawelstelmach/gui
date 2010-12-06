@@ -1,0 +1,49 @@
+<p>
+	
+</p>
+<table>
+  <tr>
+  	<th>Nazwa parametru</th>
+    <th>Wartość</th>
+    <th>Widoczność w kreatorze</th>
+  </tr>
+  <tr>
+  	<td>Maksymalna liczba wersji usług</td>
+    <td><input value="5"></input></td>
+    <td style="text-align:center;"><input type="radio" name="visability_max_version_number" value="visible">Widoczny
+		<input type="radio" name="visability_max_version_number" value="hidden">Ukryty
+	</td>
+  </tr>
+    <tr>
+  	<td>Liczba poszukiwanych planów sąsiednich</td>
+    <td><input value="5"></input></td>
+    <td style="text-align:center;"><input type="radio" name="visability_neighbour_plan_number" value="visible">Widoczny
+		<input type="radio" name="visability_neighbour_plan_number" value="hidden">Ukryty</td>
+  </tr>
+    <tr>
+  	<td>Liczba powtórzeń kroku</td>
+    <td><input value="5"></input></td>
+    <td style="text-align:center;"><input type="radio" name="visability_iteration_number" value="visible">Widoczny
+		<input type="radio" name="visability_iteration_number" value="hidden">Ukryty</td>
+  </tr>
+    <tr>
+  	<td>Stopień podobieństwa</td>
+    <td><input value="5"></input></td>
+    <td style="text-align:center;"><input type="radio" name="visability_similarity_value" value="visible">Widoczny
+		<input type="radio" name="visability_similarity_value" value="hidden">Ukryty</td>
+  </tr>
+    <tr>
+  	<td>Algorytm doboru usług</td>
+    <td>
+    	<select>
+  			<option value="volvo">filtr exact match (oryginalny)</option>
+  			<option value="saab">filtr plug-in match (oryginalny)</option>
+  			<option value="mercedes">filtr exact match (dokładny)</option>
+  			<option value="audi">filtr plug-in match (dokładny)</option>
+			<option value="audi">filtr exact match (przybliżony)</option>
+			<option value="audi">filtr plug-in match (przybliżony)</option>
+		</select></td>
+    <td style="text-align:center;"><input type="radio" name="visability_algorithm" value="visible">Widoczny
+		<input type="radio" name="visability_algorithm" value="hidden">Ukryty</td>
+  </tr>
+</table>

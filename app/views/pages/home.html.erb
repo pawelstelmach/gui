@@ -1,0 +1,37 @@
+<% title 'Kompozytor usług' %>
+<div id="pokaz_kompozycje">
+	<h2><%= link_to "Prezentacja działania", "#", :id => "toogle_tutorial", :style => "text-decoration:none; color: #000000;" %></h2>
+<div id="tutorial" style="text-align:center;">
+</div>
+</div>
+<br>
+<div id="aplikacja">
+<h2>Kompozycje</h2>
+<div style="text-align:center;margin-top:40px;margin-bottom:20px;">
+<%= link_to "Kompozycje", experiments_path, :class => "button", :style => 'margin: 20px 20px 20px 20px;' %>
+<%= link_to (session[:experiment] ? session[:experiment][:name] : "Ostatnia kompozycja"), session[:experiment] ? experiment_link(session[:experiment]) : Experiment.find(:last), :class => "button", :style => 'margin: 20px 20px 20px 20px;'%>
+</div>
+</div>
+<br>
+<div id="baza_wiedzy">
+<h2 style="width:100%;">Baza wiedzy</h2>
+<div style="text-align:center;margin-top:40px;margin-bottom:20px;">
+<%= link_to "Wymagania", slas_path, :class => "button", :style => 'margin: 20px 20px 20px 20px;'%>
+<%= link_to "Usługi", services_path(session[:experiment]), :class => "button", :style => 'margin: 20px 20px 20px 20px;' %>
+<%= link_to "Ontologia", concepts_path(session[:experiment]), :class => "button", :style => 'margin: 20px 20px 20px 20px;' %>
+</div>
+</div>
+<br/>
+<br/>
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#tutorial').hide();
+		new Ajax.Updater('tutorial', '/pages/get_photo/0/Main', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('r4Zxnv4m0jgTfZpMqpoj44hFkzxsmNd/8rRcGbkfoVw=')})
+        $j('a#toogle_tutorial').click(function() {
+		$j('#tutorial').slideToggle(400);
+		  return false;
+        });
+      });
+") %>
+
+

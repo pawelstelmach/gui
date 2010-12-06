@@ -1,0 +1,40 @@
+<% title "Wymagania funkcjonalne" %>
+<p>
+	<div id="pokaz_kompozycje">
+		<h2><%= link_to "Prezentacja dzia�ania", "#", :id => "toogle_tutorial", :style => "text-decoration:none; color: #000000;" %></h2>
+		<div id="tutorial" style="text-align:center;"></div>
+	</div>
+</p>
+<p>
+  <%= link_to "Nowe wymagania", new_sla_path, :target => :blank %>
+</p>
+<table style="width: 60%">
+	<tr>
+		<th>Nazwa</th>
+    	<th>Opcje</th>
+	</tr>
+	<%= render :partial => 'sla', :collection => @slas, :as => :sla %>
+</table>
+<%= link_to "Dodaj z pliku", "#", :id => "toggle_new_sla" %>
+<div id="new_sla">
+	<%= render :partial => 'sla_from_file' %>
+</div>
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#tutorial').hide();
+		new Ajax.Updater('tutorial', '/pages/get_photo/0/SLAs', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('r4Zxnv4m0jgTfZpMqpoj44hFkzxsmNd/8rRcGbkfoVw=')})
+        $j('a#toogle_tutorial').click(function() {
+		$j('#tutorial').slideToggle(400);
+		  return false;
+        });
+      });
+") %>
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#new_sla').hide();
+		$j('a#toggle_new_sla').click(function() {
+		$j('#new_sla').slideToggle(400);
+		  return false;
+        });
+      });
+") %>

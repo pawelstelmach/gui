@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  experiment_id: 1
+  sla_id: 1
+
+two:
+  experiment_id: 1
+  sla_id: 1

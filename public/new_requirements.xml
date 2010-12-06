@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functional-requirement tipList="http://localhost:3000/applet/tip.xml" url="http://localhost:3000/experiments/sla/upload">
+  <requirement>
+    <id>1</id>
+    <name>nazwa 1</name>
+    <child>2</child>
+    <child>3</child>
+    <input>A</input>
+    <output>B</output>
+    <output>C</output>
+  </requirement>
+  <requirement>
+    <id>2</id>
+    <name>nazwa 2</name>
+    <child>4</child>
+    <input>B</input>
+    <input>marka</input>
+    <input>malarz</input>
+    <output>D</output>
+  </requirement>
+  <requirement>
+    <id>3</id>
+    <name>nazwa 3</name>
+    <child>4</child>
+    <input>C</input>
+    <output>E</output>
+  </requirement>
+  <requirement>
+    <id>4</id>
+    <name>nazwa 4</name>
+    <child>5</child>
+    <input>D</input>
+    <input>E</input>
+    <input>malarz</input>
+    <output>F</output>
+  </requirement>
+  <requirement>
+    <id>5</id>
+    <name>nazwa 5</name>
+    <input>F</input>
+    <output>G</output>
+  </requirement>
+</functional-requirement>
+

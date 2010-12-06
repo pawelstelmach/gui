@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  settings_id: 
+  name: MyString
+  value: MyString
+  visible: false
+
+two:
+  settings_id: 
+  name: MyString
+  value: MyString
+  visible: false

@@ -1,0 +1,9 @@
+one:
+  cost: MyString
+  availability: MyString
+  succesful: MyString
+
+two:
+  cost: MyString
+  availability: MyString
+  succesful: MyString

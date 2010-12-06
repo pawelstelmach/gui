@@ -1,0 +1,19 @@
+<% title "Nowe wymagania" %>
+<div id="pokaz_kompozycje">
+	<h2><%= link_to "Jak formu³owaæ wymagania funkcjonalne", "#", :id => "toogle_tutorial", :style => "text-decoration:none; color: #000000;" %></h2>
+	<div id="tutorial" style="text-align:center;"></div>
+</div>
+<br/>
+
+<%= render :partial => 'applet' %>
+
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#tutorial').hide();
+		new Ajax.Updater('tutorial', '/pages/get_photo/0/New_SLA', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('r4Zxnv4m0jgTfZpMqpoj44hFkzxsmNd/8rRcGbkfoVw=')})
+        $j('a#toogle_tutorial').click(function() {
+		$j('#tutorial').slideToggle(400);
+		  return false;
+        });
+      });
+") %>

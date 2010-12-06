@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proces-zlozony>
+	<proces>
+		<pid>1</pid>
+		<input>klient panstwowy</input>
+		<output>klient panstwowy</output>
+		<output>podobny</output>
+	</proces>
+</proces-zlozony>

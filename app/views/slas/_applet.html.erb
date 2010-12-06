@@ -1,0 +1,15 @@
+<div style="text-align:center;">
+<applet code="com.awjastrzebski.applets.SoaApplet" 
+			width="900"
+ 		    height="500"
+ 		    codebase="/applet"
+ 		    archive="commons-codec-1.4.jar, commons-httpclient-3.1.jar, jdom.jar, commons-logging-1.1.1.jar">
+			<% if(!@id.nil?) %>
+				<param name="source" value="<%= @content %>">
+				<param name="id" value="<%= @id %>">
+				<param name="filename" value="<%= @name %>">
+			<% end %>
+			<param name="url" value="<%= @sla_url %>">
+</applet>
+</div>
+<%= link_to("Zamknij", "javascript:self.close()") %>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tips>
+	<tip>
+		<word>klient</word>
+		<inputCount>32</inputCount>
+		<outputCount>21</outputCount>
+	</tip>
+	<tip>
+		<word>podobny</word>
+		<inputCount>1</inputCount>
+		<outputCount>12</outputCount>
+	</tip>
+	<tip>
+		<word>klient panstwowy</word>
+		<inputCount>121</inputCount>
+		<outputCount>142</outputCount>
+	</tip>
+	<tip>
+		<word>klient publiczny</word>
+		<inputCount>121</inputCount>
+		<outputCount>126</outputCount>
+	</tip>
+	<tip>
+		<word>dopasowana</word>
+		<inputCount>121</inputCount>
+		<outputCount>1232</outputCount>
+	</tip>
+	<tip>
+		<word>usluga</word>
+		<inputCount>121</inputCount>
+		<outputCount>12234</outputCount>
+	</tip>
+	<tip>
+		<word>usluga glosowa</word>
+		<inputCount>121</inputCount>
+		<outputCount>12</outputCount>
+	</tip>
+	<tip>
+		<word>sugerowana</word>
+		<inputCount>31</inputCount>
+		<outputCount>2</outputCount>
+	</tip>
+	<tip>
+		<word>osoba prywatna</word>
+		<inputCount>71</inputCount>
+		<outputCount>2</outputCount>
+	</tip>
+	<tip>
+		<word>wybrana</word>
+		<inputCount>41</inputCount>
+		<outputCount>26</outputCount>
+	</tip>
+	<tip>
+		<word>instalacja urzadzenia</word>
+		<inputCount>1</inputCount>
+		<outputCount>22</outputCount>
+	</tip>
+	<tip>
+		<word>urzadzenie</word>
+		<inputCount>1</inputCount>
+		<outputCount>29</outputCount>
+	</tip>
+	<tip>
+		<word>urzadzenie stacjonarne</word>
+		<inputCount>4</inputCount>
+		<outputCount>23</outputCount>
+	</tip>
+	<tip>
+		<word>urzadzenie radio-telefoniczne</word>
+		<inputCount>8</inputCount>
+		<outputCount>14</outputCount>
+	</tip>
+</tips>

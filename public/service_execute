@@ -1,0 +1,41 @@
+#!/usr/bin/env python
+
+from optparse import OptionParser
+import socket
+
+MANAGER_PORT = 15883
+
+def mk_parser():
+	parser = OptionParser('usage: %prog [options] arg')
+	parser.add_option("-s", "--server", dest="server", default="10.15.4.154",
+		help="RDM server location")
+        parser.add_option("--port", dest="port", default=MANAGER_PORT,
+                help="Service manager port (default %d)" % (MANAGER_PORT))
+	return parser
+
+def create_socket(options):
+	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	sock.connect((options.server, int(options.port)))
+	return sock
+
+def close_socket(sock):
+	sock.close()
+
+def send_req(sock, command):
+	sock.send('%s\n' % (command))
+
+def get_answ(sock):
+	answ_file = sock.makefile()
+	for line in answ_file:
+		print line,
+
+def main():
+	parser = mk_parser()
+	(options, args) = parser.parse_args()
+	sock = create_socket(options)
+	send_req(sock, args[0])
+	get_answ(sock)
+	close_socket(sock)
+		
+if __name__ == "__main__":
+	main()

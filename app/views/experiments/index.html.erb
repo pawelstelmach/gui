@@ -1,0 +1,36 @@
+<% title "Kompozycje" %>
+<p>
+	<div id="pokaz_kompozycje">
+		<h2><%= link_to "Prezentacja działania", "#", :id => "toogle_tutorial", :style => "text-decoration:none; color: #000000;" %></h2>
+		<div id="tutorial" style="text-align:center;"></div>
+	</div>
+</p>
+<p>
+	Pokaż: <%= link_to "Moje kompozycje" %> | <%= link_to "Wszystkie kompozycje" %>
+	
+</p>
+<p>
+  <%= link_to "Nowa kompozycja", new_experiment_path %>
+</p>
+<table>
+  <tr>
+  	<th>Id</th>
+    <th>Nazwa kompozycji</th>
+    <th>SLA</th>
+    <th>Stan wykonania</th>
+    <th>Autor</th>
+	<th>Opcje</th>
+  </tr>
+  <%= render :partial => 'experiment', :collection => @experiments, :as => :experiment %>
+</table>
+
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#tutorial').hide();
+		new Ajax.Updater('tutorial', '/pages/get_photo/0/Compositions', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('r4Zxnv4m0jgTfZpMqpoj44hFkzxsmNd/8rRcGbkfoVw=')})
+        $j('a#toogle_tutorial').click(function() {
+		$j('#tutorial').slideToggle(400);
+		  return false;
+        });
+      });
+") %>

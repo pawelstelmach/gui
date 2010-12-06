@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proces-zlozony>
+	<proces>
+		<pid>1</pid>
+		<child>2</child>
+		<child>4</child>
+		<input></input>
+		<output>klient potencjalny</output>
+	</proces>
+	<proces>
+		<pid>2</pid>
+		<child>3</child>
+		<input>klient potencjalny</input>
+		<output>klient podobny</output>
+	</proces>
+	<proces>
+		<pid>3</pid>
+		<child>4</child>
+		<input>klient podobny</input>
+		<output>usluga dopasowana</output>
+	</proces>
+	<proces>
+		<pid>4</pid>
+		<child>5</child>
+		<input>klient potencjalny</input>
+		<input>usluga dopasowana</input>
+		<output>usluga sugerowana</output>
+	</proces>
+	<proces>
+		<pid>5</pid>
+		<child>6</child>
+		<input>usluga sugerowana</input>
+		<output>usluga wybrana</output>
+	</proces>
+	<proces>
+		<pid>6</pid>
+		<input>usluga wybrana</input>
+		<output>urzadzenie</output>
+		<output>instalacja urzadzenia</output>
+	</proces>
+</proces-zlozony>

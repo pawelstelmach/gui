@@ -1,0 +1,16 @@
+<tr style="background-color:<%=cycle('#FFF', '#EEE')%>">
+	<td><%= experiment.id%></td>
+    <td><%= link_to experiment.name, experiment %></td>
+    <td><%= link_to experiment.sla.name, edit_sla_path( experiment.sla ), :target => :blank if(!experiment.sla.nil?) %></td>
+    <td><%= experiment.done ? "Wykonany" : "Niewykonany" %></td>
+	<td><%= "User" %></td>
+    <td style="text-align:center;">
+    	<%= link_to_remote "Uruchom",
+          :url => run_experiment_path(experiment),
+          :html => { :id => "run_#{experiment.id}" },          
+          :loading => "$('run_#{experiment.id}').innerHTML = 'Czekaj...'"
+        %> |
+        <%= link_to "Edytuj", edit_experiment_path(experiment) %> |
+        <%= link_to "Usuń", experiment, :confirm => 'Jesteś pewien?', :method => :delete %>
+    </td>
+</tr>
