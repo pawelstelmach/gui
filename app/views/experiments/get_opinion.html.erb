@@ -1,7 +1,8 @@
 <hr/>
 Opinia o usłudze:
 <ul>
-<li>Belief: <%= @experiment.ocena_bezpieczenstwa ? Hash.from_xml(@experiment.ocena_bezpieczenstwa)["opinion"]["belief"] : " " %></li>
-<li>Disbelief: <%= @experiment.ocena_bezpieczenstwa ? Hash.from_xml(@experiment.ocena_bezpieczenstwa)["opinion"]["disbelief"] : " " %></li>
-<li>Uncertainty: <%= @experiment.ocena_bezpieczenstwa ? Hash.from_xml(@experiment.ocena_bezpieczenstwa)["opinion"]["uncertainty"] : " " %></li>
+<% opinion_flag = @experiment.ocena_bezpieczenstwa.include?("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")%>
+<li>Belief: <%= opinion_flag ? Hash.from_xml(@experiment.ocena_bezpieczenstwa)["opinion"]["belief"] : " " %></li>
+<li>Disbelief: <%= opinion_flag ? Hash.from_xml(@experiment.ocena_bezpieczenstwa)["opinion"]["disbelief"] : " " %></li>
+<li>Uncertainty: <%= opinion_flag ? Hash.from_xml(@experiment.ocena_bezpieczenstwa)["opinion"]["uncertainty"] : " " %></li>
 </ul>

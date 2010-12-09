@@ -1,4 +1,5 @@
 <% title @experiment.name %>
+<h2><%= @experiment.name %></h2>
 <p>
 	<div id="pokaz_kompozycje">
 		<h2><%= link_to "Prezentacja działania", "#", :id => "toogle_tutorial", :style => "text-decoration:none; color: #000000;" %></h2>
@@ -58,7 +59,7 @@
 
 <fieldset>
   <legend><strong>Algorytm doboru usług</strong></legend>
-  <% filtry_dict = { 'exact_match' => 'filtr exact match (oryginalny)', 'plugin' => 'filtr plug-in match (oryginalny)', 'exact_match_2' => 'filtr exact match (dokładny)', 'plugin_2' => 'filtr plug-in match (dokładny)', 'exact_match_3' => 'filtr exact match (przybliżony)', 'plugin_3' => 'filtr plug-in match (przybliżony)' } %>
+  <% filtry_dict = { 'exact_match' => 'filtr exact match (oryginalny)', 'plugin' => 'filtr plug-in match (oryginalny)', 'exact_match_2' => 'filtr exact match (dokładny)', 'plugin_2' => 'filtr plug-in match (dokładny)', 'exact_match_3' => 'filtr exact match (przybliżony)', 'plugin_3' => 'filtr plug-in match (przybliżony)', 'plugin_math_services' => 'filtr plug-in math services'} %>
   <p>Dla filtra: <%= filtry_dict[@experiment.algorytm_doboru_uslug] %></p>
 </fieldset>
 </div>
@@ -86,7 +87,7 @@
 <%= javascript_tag("
      $j(document).ready(function() {
         $j('#raport').hide();
-        $j('a#toogle_raport').click(function() {
+        $j('a#toogle_raport').live('click', function() {
           $j('#raport').slideToggle(400);
           return false;
         });
@@ -95,7 +96,7 @@
 <%= javascript_tag("
      $j(document).ready(function() {
         $j('#xml').hide();
-        $j('a#toogle_xml').click(function() {
+        $j('a#toogle_xml').live('click', function() {
           $j('#xml').slideToggle(400);
           return false;
         });
@@ -105,11 +106,22 @@
 <%= javascript_tag("
      $j(document).ready(function() {
         $j('#opinion').hide();
-        $j('a#toogle_opinion').click(function() {
+        $j('a#toogle_opinion').live('click', function() {
 		if ($j('#opinion').is(':visible')!='true') {
-		  new Ajax.Updater('opinion', '/experiments/get_opinion?id=15', {asynchronous:false, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('NJOk3Ma2tSAZjoenLLjiOjkJGaeENX8Q0gq+mQkSBOY=')})
+		  new Ajax.Updater('opinion', '/experiments/get_opinion?id="+@experiment.id.to_s+"', {asynchronous:false, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('NJOk3Ma2tSAZjoenLLjiOjkJGaeENX8Q0gq+mQkSBOY=')})
         }
 		$j('#opinion').slideToggle(400);
+		  return false;
+        });
+      });
+") %>
+
+<%= javascript_tag("
+     $j(document).ready(function() {
+        $j('#tutorial').hide();
+		new Ajax.Updater('tutorial', '/pages/get_photo/0/Show_composition', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('r4Zxnv4m0jgTfZpMqpoj44hFkzxsmNd/8rRcGbkfoVw=')})
+        $j('a#toogle_tutorial').click(function() {
+		$j('#tutorial').slideToggle(400);
 		  return false;
         });
       });
@@ -135,14 +147,6 @@
         $('experiment_<%= @experiment.id %>_results').update("<%= (render :partial => 'wynik').gsub(/\n/, '') %>");
     <% end %>
 <% end %>
-</script>
-<%= javascript_tag("
-     $j(document).ready(function() {
-        $j('#tutorial').hide();
-		new Ajax.Updater('tutorial', '/pages/get_photo/0/Show_composition', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('r4Zxnv4m0jgTfZpMqpoj44hFkzxsmNd/8rRcGbkfoVw=')})
-        $j('a#toogle_tutorial').click(function() {
-		$j('#tutorial').slideToggle(400);
-		  return false;
-        });
-      });
-") %>
+</script> 
+
+

@@ -47,7 +47,9 @@
   <tr id="hid_params" style="background-color:<%=cycle('#FFF', '#EEE')%>;width:100%;">
   	<td><label title="Algorytm doboru usług">Algorytm doboru usług</label></td>
     <td style="border-right:none;">
-    	<% e.inputs :class => 'simple_input' do %><%= e.input :algorytm_doboru_uslug,  :as => :select, :collection => [['filtr exact match (oryginalny)','exact_match'],['filtr plug-in match (oryginalny)','plugin'],['filtr exact match (dokładny)','exact_match_2'],['filtr plug-in match (dokładny)','plugin_2'],['filtr exact match (przybliżony)','exact_match_3'],['filtr plug-in match (przybliżony)','plugin_3']] %><% end %>
+    	<% e.inputs :class => 'simple_input' do %><%= e.input :algorytm_doboru_uslug,  :as => :select, :collection => [['filtr exact match (dokładny)','exact_match_2'],['filtr plug-in math services','plugin_math_services']], :include_blank => false %>
+<!--:collection => [['filtr exact match (oryginalny)','exact_match'],['filtr plug-in match (oryginalny)','plugin'],['filtr exact match (dokładny)','exact_match_2'],['filtr plug-in match (dokładny)','plugin_2'],['filtr exact match (przybliżony)','exact_match_3'],['filtr plug-in match (przybliżony)','plugin_3']] -->
+<% end %>
     </td>
 	<td style="border-left:none;"><%= link_to "Opisy filtrów", "/filtry.html", :target => :blank %></td>
   </tr>

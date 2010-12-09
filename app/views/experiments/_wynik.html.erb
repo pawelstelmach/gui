@@ -4,35 +4,11 @@
 %>
 <br>
 <div>
-<a id='toogle_opinion' href=\"javascript:void(0)\">Estymuj bezpieczeństwo usługi złożonej</a> | <a id='toogle_raport' href=\"javascript:void(0)\">Generuj raport szczegółowy</a> | <a id='toogle_xml' href=\"javascript:void(0)\">Pokaż wynik w xml</a> | <a href=\"<%= experiment_result_path(@experiment) %>\" target='_blank'>Pokaż wynik w xml</a>
+<a id='toogle_opinion' href=\"javascript:void(0)\">Estymuj bezpieczeństwo usługi złożonej</a> | <a id='toogle_raport' href=\"javascript:void(0)\">Generuj raport szczegółowy</a> | <a id='toogle_xml' href=\"javascript:void(0)\">Pokaż wynik w xml</a> | <a href=\"<%= experiment_result_path(@experiment) %>\" target='_blank'>Pokaż wynik w xml w nowym oknie</a>
 </div>
 <br>
-<div id='opinion'>
+<div id='opinion' style='display:none;'>
 </div>
-<!--
-<% python = [] %>
-<% w_array.each do |w| %>
-  <% k_array = Array.new %>
-  <% k_array <<= w["services"]["service"] %>
-  <% k_array = k_array.flatten %> 
-  <% k_array.each do |k| %>
-    <% if k["chosen"] %>
-      <% python << "#{k["name"]},#{k["description"]}" %>
-    <% end %>
-  <% end %>
-<% end %>
-<%= python.join(' ') %><br/>
-<a href='#' onclick='<%= remote_function(:update => "opinion", :url => { :controller => "experiments", :action => "get_opinion", :id => @experiment.id } )%>'>Estymuj bezpieczeństwo usługi złożonej</a>
-
-
-<a href='http://localhost:3000/experiments/get_opinion/<%=@experiment.id%>'>Estymuj bezpieczeństwo usługi złożonej</a>
-<div id='opinion'>
-Opinia o usłudze:<br>
-Belief: <%= @experiment.ocena_bezpieczenstwa ? Hash.from_xml(@experiment.ocena_bezpieczenstwa)["opinion"]["belief"] : " " %><br>
-Disbelief: <%= @experiment.ocena_bezpieczenstwa ? Hash.from_xml(@experiment.ocena_bezpieczenstwa)["opinion"]["disbelief"] : " " %><br>
-Uncertainty: <%= @experiment.ocena_bezpieczenstwa ? Hash.from_xml(@experiment.ocena_bezpieczenstwa)["opinion"]["uncertainty"] : " " %><br>
-</div>
--->
 
 <div id='raport' style='display:none;'>
 <hr/>
@@ -52,7 +28,7 @@ Uncertainty: <%= @experiment.ocena_bezpieczenstwa ? Hash.from_xml(@experiment.oc
   </ul>
 <% end %>
 </div>
-<div id='xml'>
+<div id='xml' style='display:none;'>
 <hr/>
  Wynik w xml:
  <br><br>

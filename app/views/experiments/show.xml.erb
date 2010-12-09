@@ -8,7 +8,7 @@
    <item> </item>
   </row>
  </matrix>
- <%= @experiment.sla.content[40..-2] %>
+ <%= @experiment.sla.content[@experiment.sla.content.index("<functionalities>")-1..-1] %>
  <nonfunctionalities>
  <total>
   <response_time>

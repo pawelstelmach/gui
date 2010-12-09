@@ -1,6 +1,7 @@
 <tr style="background-color:<%=cycle('#FFF', '#EEE')%>">
 <td ><%= link_to "#{sla.name}", edit_sla_path(sla), :target => 'blank' %></td>
-<td style="text-align:center;"><%= link_to "Pokaż xml", sla_path( sla, :format => :xml ), :target => 'blank' %> | 
-<%= link_to "Dodaj krawędzie", :controller => :slas, :action => :check_edges, :id => sla.id%> |
+<td style="text-align:center;">
+<%= link_to "Pokaż xml", sla_path( sla, :format => :xml ), :target => 'blank' %> | 
+<%= link_to "Dodaj krawędzie", check_edges_sla_path(sla), :target => 'blank' %> |
 <%= link_to "Edytuj", edit_sla_path(sla), :target => :blank %> | <%= link_to "Usuń", sla_path(sla), :confirm => 'Jesteś pewien?', :method => :delete %></td>
 </tr>

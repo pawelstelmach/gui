@@ -70,4 +70,19 @@
 		<inputCount>8</inputCount>
 		<outputCount>14</outputCount>
 	</tip>
+	<tip>
+		<word>R</word>
+		<inputCount>8</inputCount>
+		<outputCount>14</outputCount>
+	</tip>
+		<tip>
+		<word>R2</word>
+		<inputCount>8</inputCount>
+		<outputCount>14</outputCount>
+	</tip>
+		<tip>
+		<word>C</word>
+		<inputCount>8</inputCount>
+		<outputCount>14</outputCount>
+	</tip>
 </tips>

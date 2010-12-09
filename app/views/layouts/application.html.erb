@@ -17,8 +17,7 @@
     <div id="tab_container">
  	<ul id="tabs">
     <li id="selected_experiment" class="<%= @page_id == "selected_experiment" ? "tab_selected" : "tab_not_selected" %>">
-		<%= link_to (session[:experiment] ? session[:experiment][:name] : "Ostatnia kompozycja"), 
-			session[:experiment] ? experiment_link(session[:experiment]) : Experiment.find(:last) %>
+		<%= link_to "Ostatnia kompozycja", session[:experiment] ? experiment_link(session[:experiment]) : Experiment.find(:last) %>
 	</li>
  	<li id="experiments" class="<%= @page_id == "experiments" ? "tab_selected" : "tab_not_selected" %>">
  		<%= link_to "Kompozycje", experiments_path %>

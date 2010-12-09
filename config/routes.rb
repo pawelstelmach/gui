@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.applet 'experiments/sla/upload', :controller => 'experiments', :action => 'xml_upload'
    
   map.resources :experiments, :member => { :run => :post }, :collection => { :get_opinion => :get, :show_result => :get, :general_log => :get, :detailed_log => :get, :uruchom_kompozycje => :get, :last => :get}#, :has_one => :sla
-  map.resources :slas, :collection => { :get_slas => :get, :parse_xml => :post }
+  map.resources :slas, :collection => { :get_slas => :get, :parse_xml => :post, :check_edges => :get }
   map.resources :parameters
   #map.resources :sla,  :has_many => :experiments
   

@@ -16,7 +16,7 @@
 	<div class="fieldset_right_narrow">
 	<% e.inputs "Wymagania niefunkcjonalne" do %>
 		<%= e.input :ograniczenie_cost, :label=> "Koszt [zł]" %>
-		<%= e.input :ograniczenie_time, :label=> "Koszt [s]" %> 
+		<%= e.input :ograniczenie_time, :label=> "Czas [s]" %> 
 		<%= e.input :waga_cost %>
 		<%= e.input :waga_time %>
 	<% end %>
@@ -35,7 +35,9 @@
 		<%= link_to "Pokaż algorytm doboru usług", "#", :id => "toggle_algorithm" %>
 	<% end %>
 	<div id="hid_algorithm">
-	<% e.inputs do %><%= e.input :algorytm_doboru_uslug,  :as => :select, :collection => [['filtr exact match (oryginalny)','exact_match'],['filtr plug-in match (oryginalny)','plugin'],['filtr exact match (dokładny)','exact_match_2'],['filtr plug-in match (dokładny)','plugin_2'],['filtr exact match (przybliżony)','exact_match_3'],['filtr plug-in match (przybliżony)','plugin_3']] %><% end %>
+	<% e.inputs do %><%= e.input :algorytm_doboru_uslug, :as => :select, :collection => [['filtr exact match (dokładny)','exact_match_2'],['filtr plug-in math services','plugin_math_services']], :include_blank => false %>
+<!-- :collection => [['filtr exact match (oryginalny)','exact_match'],['filtr plug-in match (oryginalny)','plugin'],['filtr exact match (dokładny)','exact_match_2'],['filtr plug-in match (dokładny)','plugin_2'],['filtr exact match (przybliżony)','exact_match_3'],['filtr plug-in match (przybliżony)','plugin_3']] %> -->
+<% end %>
     </div>
 <br/><br/>
 <div id="result"></div>
