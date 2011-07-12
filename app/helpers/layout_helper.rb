@@ -16,9 +16,9 @@ module LayoutHelper
     end
   end
   
-  def check_edges_sla_path(sla)
-    url_for(:controller => 'Slas', :action => 'check_edges', :id => sla.id)
-  end
+#  def check_edges_sla_path(sla)
+#    url_for(:controller => 'Slas', :action => 'check_edges', :id => sla.id)
+#  end
   
   def experiment_result_path(experiment)
     url_for(:controller => 'Experiments', :action => 'show_result', :id => experiment.id, :only_path => false)

@@ -1,0 +1,31 @@
+<tr id="exp<%= engine_service.id %>" class="row_engine">
+	<td class="cell" style="border-left:dashed 3px #cccccc; border-top:dashed 3px #cccccc; border-bottom:dashed 3px #cccccc; margin-bottom: 1em"><%= check_box_tag "services", engine_service.id %></td>
+    <td class="cell" style="border-top:dashed 3px #cccccc; border-bottom:dashed 3px #cccccc;"><%= button_to engine_service.name, edit_smart_engine_service_path(engine_service), :method => :get %></td>
+    <td class="cell" style="width: 27em; border-top:dashed 3px #cccccc; border-bottom:dashed 3px #cccccc;">
+	<p style="font-style:italic;">
+		Service description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pellentesque risus in enim porta aliquam ...
+	</p>
+	</td>
+    <td class="cell" style="text-align:center; border-top:dashed 3px #cccccc; border-bottom:dashed 3px #cccccc; border-right:dashed 3px #cccccc; width:13em;">
+        <%= link_to "Edit", edit_smart_engine_service_path(engine_service) %> |
+        <%= link_to "More...", engine_service, :id => "link#{engine_service.id}", :class => "visibilitylink" %>
+    </td>
+</tr>
+<tr id="morelink<%= engine_service.id %>" style="display:none;">
+	<td></td>
+	<td></td>		
+	<td class="cell row_engine moreexp<%= engine_service.id %>" style="border-left:dashed 3px #cccccc; border-top:dashed 3px #cccccc; border-bottom:dashed 3px #cccccc; margin-bottom: 1em display:none;">
+		<p style="font-style:italic;">
+		Executed in Workflow Engine:<br>
+		<strong>WE Local</strong><br>
+		</p>
+	
+	</td>
+	<td class="cell row_engine moreexp<%= engine_service.id %>" style="text-align:center; border-top:dashed 3px #cccccc; border-bottom:dashed 3px #cccccc; border-right:dashed 3px #cccccc;">
+        <%= link_to "Analyze XML", engine_service, :target => "_blank" %> |
+        <%= link_to "Delete", engine_service, :confirm => 'Are you sure?', :method => :delete %>
+	</td>
+</tr>
+<tr>
+	<td class="cell"></td>
+</tr>

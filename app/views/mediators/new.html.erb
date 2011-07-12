@@ -1,0 +1,31 @@
+<p style="text-align:center;">
+	<button id="newrepbut">Add new</button>
+	<div id="newrep" style="display:none;">
+		<%= render :partial => 'form' %>
+	</div>
+</p>
+<hr>
+
+<h3 style="text-align:center;">What are <%= @name %></h3>
+<p><%= @name %> ...</p>
+<hr>
+<p>Try out the menu on the right to learn more about <%= @name %></p>
+<script type="text/javascript">
+	$j(function() {
+		function runEffect() {
+			
+			var options = {};
+			$j( "#newrep" ).toggle( "blind", options, 500 );
+		};
+		
+		$j( "#newrepbut" ).click(function() {
+			runEffect();
+			return false;
+		});
+	});
+	
+		$j(function() {
+		$j( "button" ).button();
+		$j( "#mediator_submit" ).button();
+	});
+</script>

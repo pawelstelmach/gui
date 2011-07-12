@@ -1,0 +1,26 @@
+<script type='text/javascript'>
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+			
+	        data.addColumn('string', 'Repository');
+	        data.addColumn('number', 'Avrage[s]');
+	        data.addColumn('number', 'Last[s]');
+	        data.addRows(<%= @mediators.length %>);
+			<% i = 0%>
+			<% @mediators.each do |m| %>
+			data.setValue(<%= i %>, 0, "<%= m[:name] %>");
+	        data.setValue(<%= i %>, 1, <%= m[:avg_time] %>);
+	        data.setValue(<%= i %>, 2, <%= m[:last_time] %>);
+			<% i += 1 %>
+			<% end %>
+	
+			
+			var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+	        chart.draw(data, {width: 220, height: <%= @mediators.size*90 %>,
+			  colors: ['#f9bd01', '#2e83ff'],
+			  legend: 'bottom'
+	                         });
+      }
+ </script>
+<h3 style="text-align: center;">Average Response Time</h3>
+<div id="chart_div" style='width: 220px; height: <%= @mediators.size*90 %>px; border: solid 1px #a6c9e2'></div>

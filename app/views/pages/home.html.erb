@@ -9,7 +9,7 @@
 <h2>Kompozycje</h2>
 <div style="text-align:center;margin-top:40px;margin-bottom:20px;">
 <%= link_to "Kompozycje", experiments_path, :class => "button", :style => 'margin: 20px 20px 20px 20px;' %>
-<%= link_to (session[:experiment] ? session[:experiment][:name] : "Ostatnia kompozycja"), session[:experiment] ? experiment_link(session[:experiment]) : Experiment.find(:last), :class => "button", :style => 'margin: 20px 20px 20px 20px;'%>
+		<%= link_to "Ostatnia kompozycja", session[:experiment] ? experiment_link(session[:experiment]) : (Experiment.last(:conditions => { :user_id => current_user.id }).nil? ? experiments_path : Experiment.last(:conditions => { :user_id => current_user.id })), :class => "button", :style => 'margin: 20px 20px 20px 20px;' %>
 </div>
 </div>
 <br>

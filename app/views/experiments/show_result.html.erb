@@ -1,0 +1,41 @@
+<h3>Composition Result</h3>
+<p>
+    Do you want to replace your current SSDL with the given SSDL description of your Smart Service?
+</p>
+<p style="font-style:italic;">
+    (The SSDL file should have opened in new window)
+</p>
+<div style="text-align:center;">
+    <button id='save'>
+        Save
+    </button>
+    <button id='cancel'>
+        Cancel
+    </button>
+</div>
+<script>
+    $j(function(){
+        $j("input[type=submit]").button();
+        $j("button").button()
+    });
+    
+    $j('#save').click(function(){
+        $j.ajax({
+            url: 'experiments/save_result/<%= @id %>',
+            async: false,
+            success: function(data){
+                $j("#dialog-result").dialog("close");
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                $j("#dialog-result").html(xhr.status + '\n\n' + thrownError);
+            }
+        });
+        return false;
+    });
+    
+    $j('#cancel').click(function(){
+        $j("#dialog-result").dialog("close");
+    });
+    
+    
+</script>

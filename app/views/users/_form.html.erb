@@ -1,0 +1,26 @@
+<% form_for @user do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label "Username:" %><br />
+    <%= f.text_field :username %>
+  </p>
+  <p>
+    <%= f.label "E-mail address:" %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label "Password:" %><br />
+    <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.label "Confirm password:" %><br />
+    <%= f.password_field :password_confirmation %>
+  </p>
+  <p><%= f.submit "Save" %></p>
+<% end %>
+ <script type="text/javascript">
+	$j(function() {
+		$j( "input[type=submit]" ).button();
+		$j( "button" ).button();
+	});
+		</script>

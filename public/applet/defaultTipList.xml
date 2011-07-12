@@ -71,17 +71,17 @@
 		<outputCount>14</outputCount>
 	</tip>
 	<tip>
-		<word>R</word>
+		<word>Realnum</word>
 		<inputCount>8</inputCount>
 		<outputCount>14</outputCount>
 	</tip>
 		<tip>
-		<word>R2</word>
+		<word>Real2</word>
 		<inputCount>8</inputCount>
 		<outputCount>14</outputCount>
 	</tip>
 		<tip>
-		<word>C</word>
+		<word>Integer</word>
 		<inputCount>8</inputCount>
 		<outputCount>14</outputCount>
 	</tip>

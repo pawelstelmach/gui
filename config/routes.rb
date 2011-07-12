@@ -2,10 +2,18 @@ ActionController::Routing::Routes.draw do |map|
   #map.applet 'experiments/sla', :controller => 'experiments', :action => 'sla_applet'
   #map.applet 'experiments/:id/sla', :controller => 'experiments', :action => 'sla_applet'
   #map.applet 'experiments/sla/upload', :controller => 'experiments', :action => 'xml_upload'
-   
-  map.resources :experiments, :member => { :run => :post }, :collection => { :get_opinion => :get, :show_result => :get, :general_log => :get, :detailed_log => :get, :uruchom_kompozycje => :get, :last => :get}#, :has_one => :sla
+  
+  map.resources :experiments, :member => { :run => :get }, :collection => { :remote_Compose => :get, :get_opinion => :get, :show_result => :get, :general_log => :get, :detailed_log => :get, :uruchom_kompozycje => :get, :last => :get, :smart_service_control => :get, :smart_service_info => :get, :atomic_services_info => :get, :compose => :get, :run_form => :get, :view_stats => :get }#, :has_one => :sla
   map.resources :slas, :collection => { :get_slas => :get, :parse_xml => :post, :check_edges => :get }
   map.resources :parameters
+  map.resources :users
+  map.resources :user_sessions
+  map.resources :repositories, :collection => { :repositories_info => :get, :ontologies_info => :get }
+  map.resources :ontologies, :collection => { :information => :get, :concepts_info => :get }
+  map.resources :mediators, :collection => { :view_stats => :get }
+  map.resources :engines
+  map.resources :smart_engine_services
+  map.resources :atomic_engine_services
   #map.resources :sla,  :has_many => :experiments
   
   
@@ -19,7 +27,13 @@ ActionController::Routing::Routes.draw do |map|
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
   # This route can be invoked with purchase_url(:id => product.id)
-  map.settings 'settings/', :controller => 'settings', :action => 'edit', :id => 1 
+  
+  map.workflow_engine_settings 'workflow_engine_settings', :controller => 'engines', :action => 'edit'
+  map.settings 'settings', :controller => 'settings', :action => 'edit'
+  map.login "login", :controller => "user_sessions", :action => "new"
+  map.logout "logout", :controller => "user_sessions", :action => "destroy"
+  map.account "account", :controller => "users", :action => "edit"
+  map.register "register", :controller => "users", :action => "new"
   map.resources :settings
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
@@ -44,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   # map.root :controller => "welcome"
-  map.root :controller => 'pages', :action => 'home'
+  map.root :controller => 'experiments', :action => 'index'
   map.connect "/pages/get_photo/:id/:site", :controller => 'pages', :action => 'get_photo'
   # See how all your routes lay out with "rake routes"
 	# Install the default routes as the lowest priority.

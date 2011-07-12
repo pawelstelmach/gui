@@ -1,73 +1,9 @@
-<% semantic_form_for @experiment do |e| %>
-    <%= e.error_messages %>
-    <%= e.inputs :name, :class => 'experiment_name' %>
-	<div class="fieldset_columns">
-	<div class="fieldset_left_narrow">
-    <% e.inputs :name => "Wymagania funkcjonalne" do %>
-		<div class="fieldset_left_narrow"  style="width:75%">
-		<%= e.input :sla, :label => "Wymagania", :as => :select, :collection => @slas, :include_blank => true, :colletcion_label_method => :name, :input_html => { :onfocus => remote_function(:update => "experiment_sla_id", :url => { :controller => "slas", :action => "get_slas" } ) } %>
-		</div>
-		<div class="fieldset_right_narrow" style="width:25%;text-align:left;">
-		<%= link_to "Edycja", slas_path, :id => :editslalink, :target => :blank, :onclick => 'sla_edit_link()'%>
-		<%= link_to "Nowe", new_sla_path, :target => :blank %>
-		</div>
-	<% end %>
-	</div>
-	<div class="fieldset_right_narrow">
-	<% e.inputs "Wymagania niefunkcjonalne" do %>
-		<%= e.input :ograniczenie_cost, :label=> "Koszt [zł]" %>
-		<%= e.input :ograniczenie_time, :label=> "Czas [s]" %> 
-		<%= e.input :waga_cost %>
-		<%= e.input :waga_time %>
-	<% end %>
-	</div>
-	</div>
-	<% e.inputs "Parametry sterujące" do %>
-		<% @settings_visible.each do |name| %>
-			<%= e.input name %>
-	 	<% end %>
-		<div id="hid_params">
-		<% @settings_hidden.each do |name| %>
-			<%= e.input name %>
-	 	<% end %>
-		</div>
-		<%= link_to "Pokaż parametry dodatkowe", "#", :id => "toogle_params" %> | 
-		<%= link_to "Pokaż algorytm doboru usług", "#", :id => "toggle_algorithm" %>
-	<% end %>
-	<div id="hid_algorithm">
-	<% e.inputs do %><%= e.input :algorytm_doboru_uslug, :as => :select, :collection => [['filtr exact match (dokładny)','exact_match_2'],['filtr plug-in math services','plugin_math_services']], :include_blank => false %>
-<!-- :collection => [['filtr exact match (oryginalny)','exact_match'],['filtr plug-in match (oryginalny)','plugin'],['filtr exact match (dokładny)','exact_match_2'],['filtr plug-in match (dokładny)','plugin_2'],['filtr exact match (przybliżony)','exact_match_3'],['filtr plug-in match (przybliżony)','plugin_3']] %> -->
+<% form_for @experiment do |f| %>
+ 	<%= label_tag('name', "Name:") %><br />
+ 	<%= f.text_field 'name' %><br /><br />
+	<%= label_tag('content', "XML:") %><br />
+    <%= f.text_area 'content', :size => "100x20" %>
+	<br /><br />
+	<%= submit_tag "Save" %>
 <% end %>
-    </div>
-<br/><br/>
-<div id="result"></div>
-	<% e.buttons do %>
-		<%=  e.commit_button :label => @experiment.id ? "Aktualizuj kompozycję" : "Stwórz kompozycję" %>
-	<% end %>
-<% end %>
-<%= javascript_tag(
-	"function sla_edit_link(){
- 		return $('editslalink').href = '"+url_for(:controller => :slas, :only_path => false)+"'+('/'+$('experiment_sla_id').value+'/edit')
-	}	
-")%>
-<%= javascript_tag("
-     $j(document).ready(function() {
-        $j('#hid_params').hide();
-        $j('a#toogle_params').click(function() {
-          $j('#hid_params').slideToggle(400);
-			$j(this).text($j(this).text() == 'Pokaż parametry dodatkowe' ? 'Ukryj parametry dodatkowe' : 'Pokaż parametry dodatkowe');
-          return false;
-        });
-      });
-") %>
-
-<%= javascript_tag("
-     $j(document).ready(function() {
-        $j('#hid_algorithm').hide();
-        $j('a#toggle_algorithm').click(function() {
-          $j('#hid_algorithm').slideToggle(400);
-			$j(this).text($j(this).text() == 'Pokaż algorytm doboru usług' ? 'Ukryj algorytm doboru usług' : 'Pokaż algorytm doboru usług');
-          return false;
-        });
-      });
-") %>
+	<%= button_to "Cancel", experiments_path, :method => :get, :style => 'margin-top: 1em;'%>

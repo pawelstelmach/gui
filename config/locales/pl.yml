@@ -1,10 +1,10 @@
 en:
   formtastic:
     titles:
-      experiment_details: "Dane kompozycji"
+      experiment_details: "Smart Service Data"
     labels:
       experiment:
-        name: "Nazwa"
+        name: "Name"
         proces: "SLA"
         max_kandydatow: "Maksymalna liczba wersji usług"
         iteracji_planow_sasiednich: 'Liczba poszukiwanych planów sąsiednich'
@@ -28,5 +28,20 @@ en:
         iteracji_alg_h: "Parametr umożliwiający uśrednienie kompozycji, jeśli w algorytmach narzędzia wykorzystywana jest losowość"
         podobienstwo: "Jest to dopuszczalny (minimalny) stopień podobieństwa pomiędzy konceptami wymagań"
     actions:
-      create: "Stwórz {{model}}"
-      update: "Zapisz zmiany"
+      create: "Create {{model}}"
+      update: "Save changes"
+      
+  authlogic:
+    error_messages:
+      login_blank: "Blank username"
+      login_not_found: "Username not found"
+      login_invalid: "Invalid username"
+      consecutive_failed_logins_limit_exceeded: "Consecutive failed logins_limit exceeded"
+      email_invalid: "Invalid e-mail address"
+      password_blank: "Blank password"
+      password_invalid: "Invalid password"
+      not_active: "User account is not active"
+      not_confirmed: "User account data was not confirmed"
+      not_approved: "User account was not approved"
+      no_authentication_details: "Blank username and password"
+

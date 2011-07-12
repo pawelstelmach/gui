@@ -1,0 +1,25 @@
+<h3>Smart Service information</h3>	
+<div id="smart_services_accordion">
+	<% @experiments.each do |exp| %>
+	<h3><a href="#"><%= exp.name %></a></h3>
+	<div style="margin-left: 0; padding-left: 0; padding-top: 0;">
+		<ul>	
+    <li>created at: <br><%= exp.created_at.strftime('%Y-%m-%d %H:%M') %></li>
+    <li>last updated: <br><%= exp.updated_at.strftime('%Y-%m-%d %H:%M') %> </li>
+    <li>last used: <br><%= exp.last_used.nil? ? " - " : exp.last_used.strftime('%Y-%m-%d %H:%M') %></li>
+    <li>No of executions: <br><%= exp.execution_number %></li>
+	</ul>	
+	</div>
+	<% end %>
+</div>
+
+
+	<script>
+	$j(function() {
+		$j( "#smart_services_accordion" ).accordion({
+			collapsible: true,
+			active: false 
+		});
+		$j( ".ui-accordion-header")
+	});
+	</script>

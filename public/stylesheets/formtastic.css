@@ -26,10 +26,11 @@ form.formtastic legend { color:#000; }
 --------------------------------------------------------------------------------------------------*/
 form.formtastic fieldset { }
 form.formtastic fieldset.inputs { }
-form.formtastic fieldset.buttons { padding-left:25%; }
+/*form.formtastic fieldset.buttons { padding-left:25%; }
+*/
 form.formtastic fieldset ol { }
-form.formtastic fieldset.buttons li { float:left; padding-right:0.5em; }
-
+/*form.formtastic fieldset.buttons li { float:left; padding-right:0.5em; }
+*/
 /* clearfixing the fieldsets */
 form.formtastic fieldset { display: inline-block; }
 form.formtastic fieldset:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }

@@ -1,0 +1,34 @@
+<% title "Composition Services Repository" %>
+<h1>Composition Services Repository</h1>
+<div style="width:70%; height:100%; float:left;">
+<table id=services_list>
+</table>
+<div id=services_pager>
+</div>
+<%= services_jqgrid %>
+</br>
+</div>
+<div class = "clear">
+</div>
+<% content_for :head do %>
+<script type="text/javascript">
+    $j(function(){
+        $j('#side_tabs').tabs({
+            ajaxOptions: {
+                error: function(xhr, status, index, anchor){
+                    $j(anchor.hash).html("Couldn't load this tab. We'll try to fix this as soon as possible.");
+                }
+            }
+        }).addClass('ui-tabs-vertical ui-helper-clearfix');
+        $j("#side_tabs li").removeClass('ui-corner-top').addClass('ui-corner-right');
+    });
+</script>
+<% end %>
+<script type="text/javascript">
+    
+    $j('#side_tabs').ajaxComplete(function(){
+        if ($j('#chart_div').length) {
+            drawChart();
+        }
+    });
+</script>

@@ -9,7 +9,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101124080944) do
+ActiveRecord::Schema.define(:version => 20110702093054) do
+
+  create_table "atomic_engine_services", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "address"
+    t.string   "method"
+    t.string   "service_class"
+    t.string   "inputs"
+    t.string   "outputs"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "engines", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "settings"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "experiments", :force => true do |t|
     t.string   "name"
@@ -33,6 +52,19 @@ ActiveRecord::Schema.define(:version => 20101124080944) do
     t.string   "ograniczenie_time"
     t.float    "podobienstwo"
     t.text     "ocena_bezpieczenstwa"
+    t.integer  "user_id"
+    t.datetime "last_used"
+    t.integer  "execution_number"
+  end
+
+  create_table "mediators", :force => true do |t|
+    t.string   "url"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "username"
+    t.string   "password"
   end
 
   create_table "parameters", :force => true do |t|
@@ -40,6 +72,14 @@ ActiveRecord::Schema.define(:version => 20101124080944) do
     t.string   "name"
     t.string   "value"
     t.boolean  "visible"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  create_table "response_times", :force => true do |t|
+    t.float    "response_time"
+    t.integer  "mediator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,6 +105,36 @@ ActiveRecord::Schema.define(:version => 20101124080944) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  create_table "smart_engine_services", :force => true do |t|
+    t.string   "name"
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "username"
+    t.string   "email"
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "persistence_token"
+    t.string   "single_access_token"
+    t.string   "perishable_token"
+    t.integer  "login_count",         :default => 0
+    t.integer  "failed_login_count",  :default => 0
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "engine_name"
+    t.text     "engine_settings"
   end
 
 end

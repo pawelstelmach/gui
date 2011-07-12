@@ -1,36 +1,196 @@
-<% title "Kompozycje" %>
-<p>
-	<div id="pokaz_kompozycje">
-		<h2><%= link_to "Prezentacja działania", "#", :id => "toogle_tutorial", :style => "text-decoration:none; color: #000000;" %></h2>
-		<div id="tutorial" style="text-align:center;"></div>
-	</div>
-</p>
-<p>
-	Pokaż: <%= link_to "Moje kompozycje" %> | <%= link_to "Wszystkie kompozycje" %>
-	
-</p>
-<p>
-  <%= link_to "Nowa kompozycja", new_experiment_path %>
-</p>
-<table>
-  <tr>
-  	<th>Id</th>
-    <th>Nazwa kompozycji</th>
-    <th>SLA</th>
-    <th>Stan wykonania</th>
-    <th>Autor</th>
-	<th>Opcje</th>
-  </tr>
-  <%= render :partial => 'experiment', :collection => @experiments, :as => :experiment %>
-</table>
-
-<%= javascript_tag("
-     $j(document).ready(function() {
-        $j('#tutorial').hide();
-		new Ajax.Updater('tutorial', '/pages/get_photo/0/Compositions', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('r4Zxnv4m0jgTfZpMqpoj44hFkzxsmNd/8rRcGbkfoVw=')})
-        $j('a#toogle_tutorial').click(function() {
-		$j('#tutorial').slideToggle(400);
-		  return false;
+<% title "Smart Services" %>
+<h1>Smart Services</h1>
+<div style="width:70%; height:100%; float:left;margin-bottom:3em;">
+    <table id="experiments">
+		<%= render :partial => 'experiment', :collection => @experiments, :as => :experiment %>
+    </table>
+</div>
+<div id="side_tabs">
+    <ul>
+        <li>
+            <a href="<%= url_for(:action => 'smart_service_control', :controller => 'experiments') %>" title="Control">C</a>
+        </li>
+        <li>
+            <a href="<%= url_for(:action => 'smart_service_info', :controller => 'experiments') %>" title="Information">I</a>
+        </li>
+        <li>
+            <a href="<%= url_for(:action => 'view_stats', :controller => 'experiments') %>" title="Statistics">S</a>
+        </li>
+        <li>
+            <a href="<%= url_for(:action => 'atomic_services_info', :controller => 'experiments') %>" title="Repository">R</a>
+        </li>
+    </ul>
+</div>
+<div id="dialog-form" title="Smart Service Test">
+</div>
+<div id="dialog-result" title="Smart Service Composition">
+</div>
+<div id="dialog-compose" title="Composition">
+	Composition in progress. Please wait...
+	<div style="text-align:center; padding:1em; margin: 0.5em;"><%= image_tag("gears.gif") %></div>
+</div>
+<div id="dialog-deploy" title="Deploy">
+</div>
+<div class = "clear">
+</div>
+</div>
+<% content_for :head do %>
+<script type="text/javascript">
+    $j(function(){
+        $j('#side_tabs').tabs({
+            ajaxOptions: {
+                error: function(xhr, status, index, anchor){
+                    $j(anchor.hash).html("Couldn't load this tab. We'll try to fix this as soon as possible.");
+                }
+            }
+        }).addClass('ui-tabs-vertical ui-helper-clearfix');
+        $j("#side_tabs li").removeClass('ui-corner-top').addClass('ui-corner-right');
+    });
+    
+    $j(function(){
+        $j("input[type=submit]").addClass('buttonwidth');        
+    });
+    
+</script>
+<% end %>
+<script type="text/javascript">
+    
+    $j('#side_tabs').ajaxComplete(function(){
+        if ($j('#chart_div').length) {
+            drawChart();
+        }
+    });
+    
+    $j('input#services').click(function(){
+        if ($j(this).is(':checked')) {
+            $j(this).parent().parent().addClass('highlight');
+            $j(".more" + $j(this).parent().parent().attr('id')).addClass('highlight');
+        }
+        else {
+            $j(this).parent().parent().removeClass('highlight');
+            $j(".more" + $j(this).parent().parent().attr('id')).removeClass('highlight');
+        }
+    });
+    
+    $j('.resultlink').click(function(){
+        $j.ajax({
+            url: 'experiments/show_result/' + $j(this).attr('id') + '.html',
+            async: false,
+            success: function(data){
+                $j("#dialog-result").html(data);
+            }
         });
-      });
-") %>
+        $j("#dialog-result").dialog("open");
+        window.open('experiments/show_result/' + $j(this).attr('id') + '.xml');
+        
+        return false;
+        
+    });
+    
+    $j(function(){
+        function runEffect(id){
+            var elemid = "#more" + id
+            var options = {};
+            $j(elemid).toggle();
+        };
+        
+        $j(".visibilitylink").click(function(){
+            runEffect($j(this).attr('id'));
+            return false;
+        });
+    });
+    
+    $j('.test_run').click(function(){
+        $j.ajax({
+            url: 'experiments/run_form/' + $j(this).attr('id'),
+            async: false,
+            success: function(data){
+                $j("#dialog-form").html(data);
+            },
+			error: function(data){
+				$j("#dialog-compose").html("Error!!");
+			}
+        });
+        
+        
+        $j("#dialog-form").dialog("open");
+        return false;
+    });
+	
+	$j('.compose_run').click(function(){
+		$j.ajax({
+            url: 'experiments/compose_form/' + $j(this).attr('id'),
+            async: false,
+            success: function(data){
+                $j("#dialog-compose").html(data);
+			}
+        });
+		        
+        $j.ajax({
+            url: 'experiments/compose/' + $j(this).attr('id'),
+            async: true,
+            success: function(data){
+                $j("#dialog-compose").html(data);
+				$j("#result_link").show();
+				
+            },
+			error: function(data){
+				$j("#dialog-compose").html("Error!!");
+				$j("#result_link").hide();
+			}
+        });
+        
+		$j("#dialog-compose").dialog("open");
+        return false;
+    });
+
+	    $j('.deploy_link').click(function(){
+        $j.ajax({
+            url: 'experiments/deploy/' + $j(this).attr('id'),
+            async: false,
+            success: function(data){
+                $j("#dialog-deploy").html(data);
+            }
+        });
+        
+        
+        $j("#dialog-deploy").dialog("open");
+        return false;
+    });
+    $j(function(){
+        $j("#dialog-form").dialog({
+            autoOpen: false,
+            modal: true,
+            show: "blind",
+            hide: "explode"
+        });
+    });
+    
+    $j(function(){
+        $j("#dialog-result").dialog({
+            autoOpen: false,
+            modal: true,
+            show: "blind",
+            hide: "explode"
+        });
+    });
+    
+	    $j(function(){
+        $j("#dialog-compose").dialog({
+            autoOpen: false,
+            modal: true,
+            show: "blind",
+            hide: "explode"
+        });
+    });
+    
+	$j(function(){
+        $j("#dialog-deploy").dialog({
+            autoOpen: false,
+            modal: false,
+            show: "blind",
+            hide: "explode"
+        });
+    });
+</script>
+

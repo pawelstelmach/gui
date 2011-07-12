@@ -1,0 +1,37 @@
+ <h3 style="padding: 0.2em 0; margin: 0.2em 0;">Smart Service Input Variables</h3>
+ 	<form id="testform">
+		<% @variables.each do |var| %>
+		<div style="padding: 0.5em 0">
+			<label for=<%= var.name %>><%= var.name+":" %></label><br>
+			<input type="text" class="testinput" name="<%= var.name %>" id="<%= var.name %>" class="text ui-widget-content ui-corner-all" /><br>
+		</div>
+	<% end %>
+	</form>
+	<button id="run" class="testinput">Run</button>
+ 	<div id="result" style="display:none;">
+ 		<div style="text-align:center; padding:1em; margin: 0.5em;"><%= image_tag("gears.gif") %></div>
+ 	</div>
+ <script>
+	
+		$j(function() {
+		$j( "input[type=submit]" ).button();
+		$j( "button" ).button();
+		
+		});
+		
+		
+		 	$j('#run').click(function() {
+			$j('#result').toggle( "blind", 300 );
+			var formdata = $j("#testform").serialize()			
+    		$j('.testinput').attr('disabled', true);
+			$j.ajax({
+  			url: 'experiments/run/'+<%= @id %>,
+			data: formdata ,
+			async: true,
+  			success: function(data) {
+    		$j("#result").html(data);
+  			}});
+
+ });
+		
+</script>

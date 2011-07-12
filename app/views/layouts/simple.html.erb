@@ -2,20 +2,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <title><%= h(yield(:title) || "Repozytorium") %></title>
+		<%= stylesheet_link_tag 'jquery/redmond/jquery-ui-1.8.12.custom.css' %>
+        <%= stylesheet_link_tag 'application', 'formtastic', 'formtastic_changes' %>
 		<%= stylesheet_link_tag 'application', 'formtastic', 'formtastic_changes' %>
-		<%= javascript_include_tag :all %>
-		<script>$j = jQuery.noConflict();</script>		
+		<%= javascript_include_tag 'jquery/jquery-1.5.1.min.js' %>
+  		<%= javascript_include_tag 'jquery/jquery-ui-1.8.12.custom.min.js' %>
+		<%= javascript_include_tag 'jquery/jquery.ui.widget.js' %>
+		<%= javascript_include_tag 'jquery/jquery.ui.core.js' %>
+		<script>$j = jQuery.noConflict();</script>	
         <%= yield(:head) %>
     </head>
     <body>
     <div id="user_data">
-		Zalogowany jako: user (<%= link_to "wyloguj" %>)
-   	</div>
-    <div id="logo">	
-       		<%= link_to image_tag("/images/logo.jpg"), root_path %>
+    	<% if current_user %>
+		<%= link_to "Profile", account_path %> | <%= link_to "Log out", logout_path %> | <%= select :language, :id, { "English" => "en" }%>
+
+   		<% else %>
+		<%= link_to "Register", register_path %> <%= link_to "Log in", login_path %> | <%= select :language, :id, { "English" => "en" } %>
+		<% end %>
 	</div>
-	<br />
-    <div id="container">
+    <div id="logo">	
+		<div style="display: inline-block; margin: 0em 0.25em 0em 0.25em;">
+			<%= link_to image_tag("/images/logo.png", :id => "ssw_logo"), root_path %></div>
+	   	<div style="display: inline-block; margin: 0em 0.25em 0em 0.25em;">
+	   		<div><label id="ssw_text">Smart Service Workbench</label></div>
+	   		<div>
+			<% if current_user %>
+	   			<label id="ssw_user" style="margin: 0em 0.25em 0em 0.25em;"><%= current_user.username %></label></div>
+			<% end %>
+		</div>
+	</div>
+    <br />
+    <div id="container" style="margin-top: 5em; width: 35%;">
 		<%- flash.each do |name, msg| -%>
         	<%= content_tag :div, msg, :id => "flash_#{name}" %>
             <%- end -%>			
@@ -24,5 +42,11 @@
             <%- end -%>
             <%= yield %>
     </div>
+	<script type="text/javascript">		
+			 $j(function(){
+        		$j("button").button();
+        		$j("input[type=submit]").button();
+    		});
+		</script>
     </body>
 </html>

@@ -1,16 +1,36 @@
-<tr style="background-color:<%=cycle('#FFF', '#EEE')%>">
-	<td><%= experiment.id%></td>
-    <td><%= link_to experiment.name, experiment %></td>
-    <td><%= link_to experiment.sla.name, edit_sla_path( experiment.sla ), :target => :blank if(!experiment.sla.nil?) %></td>
-    <td><%= experiment.done ? "Wykonany" : "Niewykonany" %></td>
-	<td><%= "User" %></td>
-    <td style="text-align:center;">
-    	<%= link_to_remote "Uruchom",
-          :url => run_experiment_path(experiment),
-          :html => { :id => "run_#{experiment.id}" },          
-          :loading => "$('run_#{experiment.id}').innerHTML = 'Czekaj...'"
-        %> |
-        <%= link_to "Edytuj", edit_experiment_path(experiment) %> |
-        <%= link_to "Usuń", experiment, :confirm => 'Jesteś pewien?', :method => :delete %>
+<tr id="exp<%= experiment.id %>" class="row">
+	<td class="cell" style="border-left:dashed 3px #a6c9e2; border-top:dashed 3px #a6c9e2; border-bottom:dashed 3px #a6c9e2; margin-bottom: 1em"><%= check_box_tag "services", experiment.id %></td>
+    <td class="cell" style="border-top:dashed 3px #a6c9e2; border-bottom:dashed 3px #a6c9e2;"><%= button_to experiment.name, edit_experiment_path(experiment), :method => :get %></td>
+    <td class="cell" style="width: 27em; border-top:dashed 3px #a6c9e2; border-bottom:dashed 3px #a6c9e2;">
+	<p style="font-style:italic;">
+		Service description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pellentesque risus in enim porta aliquam ...
+	</p>
+	</td>
+    <td class="cell" style="text-align:center; border-top:dashed 3px #a6c9e2; border-bottom:dashed 3px #a6c9e2; border-right:dashed 3px #a6c9e2; width:13em;">
+		<%= link_to "Deploy", {}, :id => experiment.id, :class => 'deploy_link' %> |
+        <%= link_to "Edit", edit_experiment_path(experiment) %> |
+        <%= link_to "More...", experiment, :id => "link#{experiment.id}", :class => "visibilitylink" %>
     </td>
+</tr>
+<tr id="morelink<%= experiment.id %>" style="display:none;">
+	<td></td>
+	<td></td>		
+	<td class="cell row moreexp<%= experiment.id %>" style="border-left:dashed 3px #a6c9e2; border-top:dashed 3px #a6c9e2; border-bottom:dashed 3px #a6c9e2; margin-bottom: 1em display:none;">
+		<p style="font-style:italic;">
+		Executed in Workflow Engine:<br>
+		<strong >WE Local</strong><br>
+		<div>
+		Last result: <span id="result_link" <%= experiment.done ? "style='display:inherit;'" : "style='display:none;'" %> ><%= link_to "Result",{}, :id => experiment.id, :class => "resultlink"%></span>
+		</div>
+		</p>
+	</td>
+	<td class="cell row moreexp<%= experiment.id %>" style="text-align:center; border-top:dashed 3px #a6c9e2; border-bottom:dashed 3px #a6c9e2; border-right:dashed 3px #a6c9e2;">
+		<%= link_to "Compose", {}, :id => experiment.id, :class => 'compose_run' %> |
+		<%= link_to "Test", {}, :id => experiment.id, :class => 'test_run' %> <br />
+        <%= link_to "Analyze XML", experiment, :target => "_blank" %> |
+        <%= link_to "Delete", experiment, :confirm => 'Are you sure?', :method => :delete %>
+	</td>
+</tr>
+<tr>
+	<td class="cell"></td>
 </tr>

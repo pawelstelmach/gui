@@ -1,0 +1,45 @@
+<div style="width:70%; height:100%; float:left;">
+<h1>Ontologies</h1>
+<% @mediators_data.each do |m| %>
+<table id=<%= "ontologies_list_"+m[:id] %> ></table>
+<div id=<%= "ontologies_pager_"+m[:id] %> ></div>
+<%= ontologies_jqgrid(m[:id], m[:name]) %>
+<%= button_to "Delete repository", { :action => "destroy", :id => m[:id] }, :confirm => "Are you sure?", :method => :delete, :style => "margin: 0.5em 0 0.5em 0;" %>
+</br>
+<% end %>
+</div>
+
+<div id="side_tabs">
+	<ul>
+		<li><a href="<%= url_for(:action => 'new', :controller => 'mediators', :params => {:mediator_type => 'O'}) %>">C</a></li>
+		<li><a href="<%= url_for(:action => 'information', :controller => 'ontologies') %>">I</a></li>
+		<li><a href="<%= url_for(:action => 'view_stats', :controller => 'mediators') %>">S</a></li>
+		<li><a href="<%= url_for(:action => 'concepts_info', :controller => 'ontologies') %>">R</a></li>
+	</ul>
+</div>
+<div class = "clear">
+</div>
+<% content_for :head do %>
+  <script type="text/javascript">
+			$j(function(){
+			$j('#side_tabs').tabs({
+				ajaxOptions: {
+					error: function( xhr, status, index, anchor ) {
+						$j( anchor.hash ).html(
+							"Couldn't load this tab. We'll try to fix this as soon as possible.");
+					}
+				}
+			}).addClass('ui-tabs-vertical ui-helper-clearfix');
+			$j("#side_tabs li").removeClass('ui-corner-top').addClass('ui-corner-right');
+		});
+	</script>
+	<% end %>
+ 
+<script type="text/javascript">	
+
+	$j('#side_tabs').ajaxComplete(function() {
+		if ($j('#chart_div').length) {
+				drawChart();
+  			}
+	});
+	</script>

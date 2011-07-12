@@ -9,35 +9,15 @@
     </head>
     <body id="<%= @page_id %>">
     <div id="user_data">
-    	Zalogowany jako: user (<%= link_to "wyloguj" %>)
+    	<% if current_user %>
+		Użytkownik: <%= link_to current_user.username, account_path %> (<%= link_to "Wyloguj", logout_path %>)
+   		<% else %>
+		<%= link_to "Rejestracja", register_path %> <%= link_to "Logowanie", login_path %>
+		<% end %>
    	</div>
 	<div id="logo">	
        <%= link_to image_tag("/images/logo.jpg"), root_path %>
-	</div><!--
-    <div id="tab_container">
- 	<ul id="tabs">
-    <li id="selected_experiment" class="<%= @page_id == "selected_experiment" ? "tab_selected" : "tab_not_selected" %>">
-		<%= link_to (session[:experiment] ? session[:experiment][:name] : "Ostatnia kompozycja"), 
-			session[:experiment] ? experiment_link(session[:experiment]) : Experiment.find(:last) %>
-	</li>
- 	<li id="experiments" class="<%= @page_id == "experiments" ? "tab_selected" : "tab_not_selected" %>">
- 		<%= link_to "Kompozycje", experiments_path %>
-		</li>
- 	<li id="slas" class="<%= @page_id == "slas" ? "tab_selected" : "tab_not_selected" %>">
- 		<%= link_to "Wymagania", slas_path %>
-		</li>
- 	<li id="services" class="<%= @page_id == "services" ? "tab_selected" : "tab_not_selected" %>">
- 		<%= link_to "Usługi", services_path(session[:experiment]) %>
-		</li>
- 	<li id="concepts" class="<%= @page_id == "concepts" ? "tab_selected" : "tab_not_selected" %>">
- 		<%= link_to "Ontologia", concepts_path(session[:experiment]) %>
-		</li>
-	<li id="settings" class="<%= @page_id == "settings" ? "tab_selected" : "tab_not_selected" %>" style="float:right; padding: 0 0.1em 0 0.1em;">
-		<%= link_to "Ustawienia", settings_path %>
-	</li>
-	 
- 	</ul> 
-	</div>-->
+	</div>
 	<div id="tab_container">
  	<ul id="tabs">
     
@@ -57,5 +37,11 @@
             <%- end -%>
             <%= yield %>
         </div>
+		<script type="text/javascript">		
+			 $j(function(){
+        		$j("button").button();
+        		$j("input[type=submit]").button();
+    		});
+		</script>
     </body>
 </html>

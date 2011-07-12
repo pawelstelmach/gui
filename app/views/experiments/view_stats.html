@@ -1,0 +1,24 @@
+<script type='text/javascript'>
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+			
+	        data.addColumn('string', 'Service');
+	        data.addColumn('number', 'Exectuions');
+	        data.addRows(<%= @services.length %>);
+			<% i = 0%>
+			<% @services.each do |s| %>
+			data.setValue(<%= i %>, 0, "<%= s[:name] %>");
+	        data.setValue(<%= i %>, 1, <%= s[:executions] %>);
+			<% i += 1 %>
+			<% end %>
+	
+			
+			var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+	        chart.draw(data, {width: 220, height: <%= @services.size*40 %>,
+			  colors: ['#2e83ff'],
+			  legend: 'bottom'
+	                         });
+      }
+ </script>
+<h3 style="text-align: center;">Number of executions</h3>
+<div id="chart_div" style='width: 220px; height: <%= @services.size*40 %>px; border: solid 1px #a6c9e2'></div>

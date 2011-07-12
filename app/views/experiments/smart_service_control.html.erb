@@ -1,0 +1,68 @@
+<div class="help">
+    <div style="text-align:right;">
+        <%= link_to(image_tag("/images/info.png", {:alt => 'info', :id => 'info1', :class => 'infoimg', :width => 25, :height =>25 })) %>
+    </div>
+    <div id="divinfo1" class="info" style="display:none;">
+        here we will place some info about smart services
+		
+	<div>
+		<%= link_to "More...", {}, :id => "testhelp", :class => "more_info" %>
+	</div>
+    </div>
+	<div id="_testhelp" class="dialog-help" title="Smart Service Test">
+	</div>
+</div>
+  <script>
+        $j(function(){
+        	$j(".dialog-help").dialog({
+            autoOpen: false,
+            modal: false,
+            show: "blind",
+            hide: "explode"
+        });
+    	});
+	
+		$j('.more_info').click(function(){
+			var id = $j(this).attr('id');
+			$j.ajax({
+            url: '/static/' + id,
+            async: false,
+            success: function(data){
+                	$j("#_"+ id).html(data);
+            	}
+        	});
+			$j( "#_"+id).dialog("open");
+        	return false;
+		});
+		
+		$j('.infoimg').click(function(){
+            var options = {};
+            $j('#div' + $j(this).attr('id')).toggle("blind", options, 300);
+            return false;
+        });
+	
+    </script>
+
+<div style="text-align:center;">
+  <%= button_to "New Smart Service", new_experiment_path %>
+  <!-- <hr>
+  <button id="comperserv">Compare Selected</button> -->
+</div>
+<hr>
+<h4>WHAT IS A SMART SERVICE?</h4>
+<ul>
+    <li>intuitive lorem ipsum</li>
+    <li>intuitive lorem ipsum</li>
+    <li>intuitive lorem ipsum</li>
+    <li>intuitive lorem ipsum</li>
+</ul>
+<hr>
+Try out the contextual menu on the right
+
+<script>
+			$j(function() {
+		$j( "input[type=submit]" ).button();
+		$j( "button" ).button();
+
+	});
+</script>

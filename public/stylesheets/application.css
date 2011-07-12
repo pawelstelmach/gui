@@ -2,11 +2,12 @@ body {
   background-color: #f1f2ff;
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
-  overflow: -moz-scrollbars-vertical
+  overflow: -moz-scrollbars-vertical;
 }
 
 #logo {
-  margin-left: 12.5%;
+  margin-left: 5%;
+  margin-bottom: 3em;
 }
 
 a img {
@@ -24,21 +25,36 @@ a {
 }
 
 #container {
-  width: 75%;
+  width: 90%;
   margin: 0 auto;
-  margin-bottom: 50px;
+  margin-bottom: 0.5em;
   background-color: #FFF;
-  padding: 2% 5% 2% 5%;
+  padding: 2% 2% 2% 5%;
   border: solid 1px black;
   margin-top: 0;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 10px;
+}
+
+#container {
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 0.5em;
+  background-color: #FFF;
+  padding: 2% 2% 2% 5%;
+  border: solid 1px black;
+  margin-top: 0;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-bottomleft: 10px;
 }
 #tab_container {
-  width: 83%;
+  width: 90%;
   margin: 0 auto;
   background-color: #f1f2ff;
-  padding: 0 5%;
+  padding: 0 2% 0 2%;
   margin-top: 20px;
 }
 
@@ -123,7 +139,7 @@ fieldset legend { padding: 0 10px; font-weight:bold; }
 	margin-bottom:25px;
 }
 
-table {
+.table {
 	width:100%; 
 	margin-bottom: 40px;
 	border: 2px solid black;
@@ -131,13 +147,13 @@ table {
 
 }
 
-th {
+.th {
 	font-weight: bold;
 	background: #a6a7ca;
 	border: 1px solid black;
 	padding: 10px
 }
-td {
+.td {
 	border: 1px solid black;
 	padding: 10px
 }
@@ -149,12 +165,12 @@ td {
 	float: right;
 }
 
- #tabs {
+ #tabs _old {
   margin-bottom: 0;
   padding: 0.1em;
  }
  
- #tabs li {
+ #tabs li _old {
   display:inline; 
   padding: 0em
  }
@@ -179,7 +195,7 @@ td {
  border-bottom: .1em solid #FFFFFF;
  }*/
  
-.tab_not_selected a {
+.tab_not_selected_old a {
  text-decoration: none;
  padding: 0.1em 1em;
  color: #000;
@@ -192,7 +208,7 @@ td {
   border-top-right-radius: 7px;
  }
  
-.tab_selected a {
+.tab_selected_old a {
  padding: 0.1em 1em;
  background: #FFFFFF;
  text-decoration: none;
@@ -240,8 +256,8 @@ td {
 	-moz-border-radius: 15px;
 	border-radius: 15px;
  }
- 
- input[type=submit] {
+ /*
+input[type=submit] {
  padding: 0.1em 0.1em;
  margin: 0.2em 0 0.2em 0;
  color: #000;
@@ -282,7 +298,6 @@ border-right: 1px solid #333333;
 border-bottom: 1px solid #333333;
 border-left: 1px solid #CCCCCC;
 }
-
 .button:hover {
 font: bold 11px Arial;
 text-decoration: none;
@@ -297,3 +312,69 @@ border-right: 1px solid #333333;
 border-bottom: 1px solid #333333;
 border-left: 1px solid #CCCCCC;
 }
+
+*/
+#ssw_logo {
+	width: 3.5em;
+	height: 3.5em;
+}
+
+#ssw_text {
+	font-size: 2.5em;
+}
+
+td.cell {
+padding: 0.5em;
+}
+
+.row {
+	background-color:#dfeffc;
+}
+.highlight {
+	background-color: #fbec88;
+}
+
+.row_engine {
+	background-color:#eeeeee;
+}
+.highlight_engine {
+	background-color: #ffe45c;
+}
+
+table{
+border-collapse:collapse;
+border-spacing: 0 1em;
+}
+
+.buttonwidth {
+	width: 15em;
+}
+
+.info {
+	display: none;
+	padding: 0.1em;
+	margin: 0.1em;
+	background-color:#dfeffc;
+	border:solid 1px #a6c9e2;
+}
+
+.info_engine {
+	display: none;
+	padding: 0.1em;
+	margin: 0.1em;
+	background-color:#eeeeee;
+	border:solid 1px #cccccc;	
+}
+
+.help {
+	padding: 1em;
+}
+/* Vertical Tabs
+----------------------------------*/
+.ui-tabs-vertical { width: 25%; height: 100%; float:right; background-color: white; border:none;} /* margin: -2.25% -2.25% -2.25% 0 */ 
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .2em .2em .1em; float: right; width: 10%; margin-top: .5em;  }
+.ui-tabs-vertical .ui-tabs-nav li { clear: right; width: 100%; border-bottom-width: 1px !important; border-left-width: 0 !important; margin: 0 0 .3em -0.15em; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected {padding-bottom: 0em; padding-left: 0em; background: none; background-color: #FFFFCC; border-left-width: 1px; border-left-color: white; margin: 0 0 .3em -0.2em; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; margin: -.2em 0 -.2em 0; float: right; width: 70%; background-color: #FFFFCC; border-color: black; border-width: 1px;}
+.ui-tabs-panel {min-height: 18em;}

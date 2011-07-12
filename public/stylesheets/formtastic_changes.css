@@ -33,9 +33,10 @@ form.formtastic fieldset.radio_buttons ol li.radio { margin: 0 0 0 0; padding: 0
 form.formtastic fieldset.radio_buttons ol li.radio fieldset { display:inline; margin: 0 0 0 0; padding: 0 0 0 0;}
 form.formtastic fieldset.radio_buttons ol li.radio fieldset ol { margin: -0.3em 0 -1.5em 0; padding: 0 0 0 0; }
 form.formtastic fieldset.radio_buttons ol li.radio fieldset ol li { float:left; margin:0 0 0.1em 0; padding: 0 0 0 0;}
-
+/*
 form.formtastic fieldset.buttons li { float:left; padding-right:0.5em; }
 form.formtastic fieldset.buttons { padding-left: 0; margin: 10px 0px 10px 0px; }
+
 
 form.formtastic fieldset.buttons li input {
  padding: 0.1em 0.1em;
@@ -61,4 +62,4 @@ form.formtastic fieldset.buttons li input:hover {
  	border-right: 1px solid #333333;
  	border-bottom: 1px solid #333333;
  	border-left: 1px solid #CCCCCC;
-}
+}*/

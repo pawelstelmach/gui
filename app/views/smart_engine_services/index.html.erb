@@ -1,0 +1,53 @@
+<% title "Engine Smart Services" %>
+<h1>Engine Smart Services</h1>
+<%= button_to "New Engine Smart Service", new_smart_engine_service_path, :style => "margin-bottom: 1em;" %>
+<div style="width:70%; height:100%; float:left;margin-bottom:3em;">
+    <table id="experiments">
+        <%= render :partial => 'engine_service', :collection => @engine_services, :as => :engine_service %>
+    </table>
+</div>
+<div class = "clear">
+</div>
+<% content_for :head do %>
+<script type="text/javascript">
+    $j(function(){
+        $j('#side_tabs').tabs({
+            ajaxOptions: {
+                error: function(xhr, status, index, anchor){
+                    $j(anchor.hash).html("Couldn't load this tab. We'll try to fix this as soon as possible.");
+                }
+            }
+        }).addClass('ui-tabs-vertical ui-helper-clearfix');
+        $j("#side_tabs li").removeClass('ui-corner-top').addClass('ui-corner-right');
+    });
+    
+    $j(function(){
+        $j("input[type=submit]").addClass('buttonwidth');
+    });
+</script>
+<% end %>
+<script type="text/javascript">
+    $j('input#services').click(function(){
+        if ($j(this).is(':checked')) {
+            $j(this).parent().parent().addClass('highlight_engine');
+            $j(".more" + $j(this).parent().parent().attr('id')).addClass('highlight_engine');
+        }
+        else {
+            $j(this).parent().parent().removeClass('highlight_engine');
+            $j(".more" + $j(this).parent().parent().attr('id')).removeClass('highlight_engine');
+        }
+    });
+        
+    $j(function(){
+        function runEffect(id){
+            var elemid = "#more" + id
+            var options = {};
+            $j(elemid).toggle();
+        };
+        
+        $j(".visibilitylink").click(function(){
+            runEffect($j(this).attr('id'));
+            return false;
+        });
+    });
+</script>

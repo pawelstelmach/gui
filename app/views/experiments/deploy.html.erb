@@ -1,0 +1,8 @@
+Smart Service Address:<br>
+<%= url_for(:action => 'deploy_run', :controller => 'experiments', :id => @id, :only_path => false, :protocol => 'http') %>
+<br><br>
+Input data XML:
+<br>
+<%=simple_format(h @inputdata.gsub("><", ">\n<")) %>
+<br><br>
+<i>To start the Smart Service You need to send xml data filled with variables values to the given addresst (the parameter with xml should have a key named 'xml')</i>
