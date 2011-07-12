@@ -1,8 +1,0 @@
-$('run_<%= @experiment.id %>').innerHTML = "Uruchom";
-$('run_<%= @experiment.id %>').highlight();
-<% if @experiment.something_changes? %>
-  show_chart();
-<% else %>
-  $('experiment_<%= @experiment.id %>_results').innerHTML = "<%= (render :partial => 'wynik').gsub(/\n/, '') %>";
-  $('experiment_<%= @experiment.id %>_results').highlight();
-<% end %>
