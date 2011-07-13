@@ -1,0 +1,102 @@
+--- !ruby/object:Gem::Specification 
+name: jqgrid_for_rails
+version: !ruby/object:Gem::Version 
+  hash: 21
+  prerelease: false
+  segments: 
+  - 1
+  - 0
+  - 1
+  version: 1.0.1
+platform: ruby
+authors: 
+- Juan Manuel Cuello
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2011-04-13 00:00:00 +02:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: will_paginate
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :runtime
+  version_requirements: *id001
+description: Simple solution to create jqgrids easily using Rails
+email: juanmacuello@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- .gitignore
+- CHANGELOG.rdoc
+- MIT-LICENSE
+- README.rdoc
+- Rakefile
+- install.rb
+- jqgrid_for_rails.gemspec
+- lib/app/helpers/jqgrids_helper.rb
+- lib/jqgrid_for_rails.rb
+- lib/jqgrid_for_rails/controllers/helpers.rb
+- lib/jqgrid_for_rails/core_ext.rb
+- lib/jqgrid_for_rails/version.rb
+- lib/tasks/jqgrid_for_rails.rake
+- rails/init.rb
+- test/controllers/helpers_test.rb
+- test/core_ext_test.rb
+- test/database.yml
+- test/jqgrid_for_rails_plugin.sqlite3.db
+- test/jqgrid_for_rails_test.rb
+- test/jqgrids_helper_test.rb
+- test/schema.rb
+- test/test_helper.rb
+- uninstall.rb
+has_rdoc: true
+homepage: http://github.com/Juanmcuello/jqgrid_for_rails
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.7
+signing_key: 
+specification_version: 3
+summary: Simple solution to create jqgrids easily using Rails
+test_files: []
+
