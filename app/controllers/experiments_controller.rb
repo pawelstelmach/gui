@@ -261,7 +261,7 @@ def engine_init(smartservicegraph, engine_settings)
     @composition_service_name = Hash.from_xml(engine_settings)['config']['init']['compose']
     
     variable = SmartServiceInputVariable.new
-    variable.name = 'ssdl'
+    variable.name = 'ssdl0'
     variable.type = 'SmartServiceGraph'
     variable.value = smartservicegraph
     

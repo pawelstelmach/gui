@@ -1,12 +1,17 @@
 <% title "Engine Smart Services" %>
-<h1>Engine Smart Services</h1>
-<%= button_to "New Engine Smart Service", new_smart_engine_service_path, :style => "margin-bottom: 1em;" %>
-<div style="width:70%; height:100%; float:left;margin-bottom:3em;">
-    <table id="experiments">
-        <%= render :partial => 'engine_service', :collection => @engine_services, :as => :engine_service %>
-    </table>
-</div>
-<div class = "clear">
+<div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <%= render :partial => "layouts/config_tabs" %>
+    <div id="content_container" class="ui-tabs-panel ui-widget-content ui-corner-bottom" style="background-color:white">
+        <h1>Engine Smart Services</h1>
+        <%= button_to "New Engine Smart Service", new_smart_engine_service_path, :style => "margin-bottom: 1em;" %>
+        <div style="width:70%; height:100%; float:left;margin-bottom:3em;">
+            <table id="experiments">
+                <%= render :partial => 'engine_service', :collection => @engine_services, :as => :engine_service %>
+            </table>
+        </div>
+        <div class = "clear">
+        </div>
+    </div>
 </div>
 <% content_for :head do %>
 <script type="text/javascript">
@@ -37,7 +42,7 @@
             $j(".more" + $j(this).parent().parent().attr('id')).removeClass('highlight_engine');
         }
     });
-        
+    
     $j(function(){
         function runEffect(id){
             var elemid = "#more" + id

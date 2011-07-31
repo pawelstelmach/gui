@@ -11,8 +11,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :repositories, :collection => { :repositories_info => :get, :ontologies_info => :get }
   map.resources :ontologies, :collection => { :information => :get, :concepts_info => :get }
   map.resources :mediators, :collection => { :view_stats => :get }
-  map.resources :engines
-  map.resources :smart_engine_services
+  map.resources :engines, :collection => { :update_config => :get }
+  map.resources :smart_engine_services, :member => { :editor_update => :get }, :collection => { :editor_create => :get }
   map.resources :atomic_engine_services
   #map.resources :sla,  :has_many => :experiments
   

@@ -1,3 +1,7 @@
-<% title "New Engine Smart Service" %>
-<h2>New Engine Smart Service</h2>
-<%= render :partial => 'form' %>
+<%title "Edit Engine Smart Service" %>
+<div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <%= render :partial => "layouts/config_tabs" %>
+    <div id="content_container" class="ui-tabs-panel ui-widget-content ui-corner-bottom" style="background-color:white">
+    <%= render :partial => "editor" %>
+</div>
+</div>

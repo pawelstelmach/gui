@@ -1,5 +1,6 @@
 class SmartServiceNode < ActionWebService::Struct
   member :name, :string
+  member :description, :string
   member :nodeclass, :string
   member :nodetype, :string
   member :inputs, [SmartServiceInput]
@@ -10,4 +11,11 @@ class SmartServiceNode < ActionWebService::Struct
   member :method, :string      #nazwa metody usługi
   member :controltype, :string #typ  dla typu control
   member :condition, :string
+  member :alternatives, [SmartServiceNode]
+  member :cost, :integer 
+  member :response_time, :integer
+  member :availability, :double
+  member :succesful, :double
+  member :reputation, :double
+  member :frequency, :double
 end

@@ -1,8 +1,236 @@
-<% title "SSW Application Configuration" %>
-<h1>SSW Engine Configuration</h1>
-<% form_for @user do |f| %>
-	<%= label_tag(:engine_settings, "Configuration XML:") %><br />
-    <%= f.text_area :engine_settings, :size => "100x20" %>
-	<br /><br />
- 	<%= submit_tag "Save" %>
-<% end %>
+<!--
+	Problemy:
+				- kasuj� si� nazwy element�w po dodaniu nowego
+				- brak walidacji XML
+	-->
+<% title "Engine Configuration" %>
+
+<div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <%= render :partial => "layouts/config_tabs" %>
+    <div id="content_container" class="ui-tabs-panel ui-widget-content ui-corner-bottom" style="background-color:white">
+   	<h1>Engine Configuration</h1>
+	
+	
+<style type="text/css">
+.headz {
+	border: 1px solid #333;
+	background-color: #eef;
+	padding: 5px;
+	opacity: 0.9;
+}
+.list1 {
+    background-color: yellow;
+    color: #660000;
+    list-style-image: url("spindown-closed.gif");
+    list-style-position: outside;
+    }
+
+    #mainRoom {
+        margin-right: 2em;
+    }
+    
+.pole { 
+	height:32px;
+	width: 15.5em;
+	border:1px dashed #ccc;
+	background-color: #fff;
+	text-align: center;
+	float:left;
+	font-size:12px;
+	font-weight: bold;
+	color: #1C94C4;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.elemInput {
+	font-style:italic;
+	font-size:14px;
+	width:10em;
+}
+</style>
+
+<script>
+	jQuery(document).ready(function(){
+		
+		$j('#accordion .head').css("list-style-image", "url('/images/spindown-closed.gif')").toggle(fn1, fn2)
+		$j('#accordion .head').click(function() {
+				$j(this).next().toggle('fast');
+				return false;
+			}).next().hide().find(".serv_list_elem").button().draggable({
+				appendTo: "body",
+				helper: "clone"
+		});
+			
+		$j("#convert").button();
+		
+		$j.each(inits, function(index, value) { 
+			var pair = value.split('=');
+  			addElement("init", pair[0], pair[1]);
+		});
+		
+		$j.each(processes, function(index, value) { 
+			var pair = value.split('=');
+  			addElement("process", pair[0], pair[1]);
+		});
+
+	});
+	
+	function fn1(evt){	$j(this).css("list-style-image","url('/images/spindown-open.gif')");	 }
+	function fn2(evt){	$j(this).css("list-style-image","url('/images/spindown-closed.gif')");  }
+	
+	inits = [];
+	processes = [];
+	inputTxt=":: enter tag name ::";
+	empty="";
+	idHelper = 0;
+	count = 0;
+	silver="silver"
+	magicBlue = "#1C94C4"
+	function addElement(where, tag, value){
+		//document.getElementById(where+'Elements').innerHTML+=
+		if(tag=="_new_") {
+			$j("#"+where+"Elements").html($j("#"+where+"Elements").html()+"<div id='element"+idHelper+"' class='element'><div style='float:left'><input value='"+inputTxt+"' defaultValue='"+inputTxt+"' id='elemInput"+idHelper+"' class='elemInput' onFocus='if(this.value==inputTxt){this.value=empty; this.style.color=magicBlue}' onBlur='if(this.value==empty || this.value==inputTxt){ this.value=inputTxt; this.style.color=silver;} else {this.defaultValue=this.value; this.style.color=magicBlue}'><img src='/images/arrow.png' align='absmiddle' hspace='10px'></div><div id='pole"+idHelper+"' class='pole'></div><div>&nbsp;<input type='button' value='-' class='del' onClick=removeMe('"+idHelper+"')></div><br></div>");
+		$j("#pole"+idHelper).droppable({
+			activeClass: "ui-state-default",
+			hoverClass: "ui-state-hover",
+			accept: ":not(.ui-sortable-helper)",
+			drop: function( event, ui ) {
+				len = 38 - 3;
+				tekst = ui.draggable.text().length > len ? ui.draggable.text().substring(0,len)+"..." : ui.draggable.text();
+
+				$j( this ).addClass("pole").text( tekst ).button().css("overflow", "auto");
+				
+				$j(this).droppable("disable").css("opacity", "1");
+			}});
+
+		}
+		else {
+			$j("#"+where+"Elements").html($j("#"+where+"Elements").html()+"<div id='element"+idHelper+"' class='element'><div style='float:left'><input value='"+tag+"' defaultValue='"+tag+"' id='elemInput"+idHelper+"' class='elemInput' onFocus='if(this.value==inputTxt){this.value=empty; this.style.color=magicBlue}' onBlur='if(this.value==empty || this.value==inputTxt){ this.value=inputTxt; this.style.color=silver;} else {this.defaultValue=this.value; this.style.color=magicBlue}'><img src='/images/arrow.png' align='absmiddle' hspace='10px'></div><div id='pole"+idHelper+"' class='pole'></div><div>&nbsp;<input type='button' value='-' class='del' onClick=removeMe('"+idHelper+"')></div><br></div>");
+			len = 38 - 3;
+			tekst = value.length > len ? value.substring(0,len)+"..." : value;
+			$j("#pole"+idHelper).addClass("pole").text( tekst ).button().css("overflow", "auto");
+			$j("#pole"+idHelper).droppable("disable").css("opacity", "1");
+		}
+		
+		$j('.del').button()
+					
+			
+			
+		$j("#elemInput"+idHelper).button().autocomplete({
+			source: availableTags
+		});;
+		
+		
+		//$j("#"+where+"Elements").find(".elemInput").each(function(){this.value = tab[cHelper--]})
+		
+		idHelper++;
+		count++;
+	}
+	
+		function removeMe(which){
+			$j("#element"+which).remove();
+			count--;
+		}
+	
+	function prepereXML()
+	{
+		var str = "<config><init>"
+		
+	$j("#initElements").find(".elemInput").each(function(){ str+="<"+this.value+">" + $j(this).parent().parent().find(".pole").text() + "</"+this.value+">";})
+		
+		str += "</init><process>"
+		
+	$j("#processElements").find(".elemInput").each(function(){ str+="<"+this.value+">" + $j(this).parent().parent().find(".pole").text() + "</"+this.value+">";})
+		
+		str += "</process></config>"
+		return str
+		
+	}
+</script>
+</head>
+
+<body>
+
+<div id="lewa" style="float:left; width:39em;">
+	<div id="mainRoom">
+		<h2 class="ui-widget-header ui-corner-all" style="padding-left:0.4em;">Init</h2>
+		<input draggable="true" type="submit" class='add add_init' style="float:block" value="+" >
+		<br><br><div id='initElements'>
+			<% unless @engine_config['init'].nil? %>			
+				<% @engine_config['init'].each do |k, v|%>
+					<script>
+						inits.push("<%= k %>=<%= v %>")
+					</script>
+				<% end %>
+			<% end %>
+		</div>
+		<input draggable="true" type="submit" class='add add_init' style="float:block" value="+" >
+
+		<br><br>
+		
+		<h2 class="ui-widget-header ui-corner-all" style="padding-left:0.4em;">Process</h2>
+		<input draggable="true" type="submit" class='add add_proc' style="float:block" value="+">
+		<br><br><div id='processElements'>
+			<% unless @engine_config['process'].nil? %>
+				<% @engine_config['process'].each do |k, v|%>
+					<script>
+						processes.push("<%= k %>=<%= v %>")
+					</script>
+				<% end %>
+			<% end %>
+		</div>
+		<input draggable="true" type="submit" class='add add_proc' style="float:block" value="+">
+		
+		<br><br><input type="submit" id="convert" id="convert" value="Save"><br><div id="result">&nbsp;</div>
+	</div>
+</div>
+<div class="simple" style="float:left; width:20em;">
+	Engine Atomic Services<br>
+	<ul id="accordion">
+		<% @atomic_engine_services.each do |k, v| %>
+		
+		<li class="head"><a href="#"><%= k %></a></li>
+		<div>
+		<% v.each do |serv| %>
+				<div style="margin: 0.1em 0 0.1em 0; text-align:center;" class="serv_list_elem"><%= serv.name %></div>
+		<% end %>
+		</div>
+		<% end %> 
+	</ul>
+</div><!-- End simple -->
+
+<div class="complex" style="float:left; width:20em;">
+	Engine Composite Services<br>
+	<ul id="accordion">
+		<% @smart_engine_services.each do |k, v| %>
+		<li class="head"><a href="#"><%= k %></a></li>
+		<div>
+			<% v.each do |serv| %>
+				<div style="margin: 0.1em 0 0.1em 0; text-align:center;" class="serv_list_elem"><%= serv.name %></div>
+			<% end %>
+		</div>
+		<% end %>
+	</ul>
+</div><!-- End complex -->
+<div class = "clear">
+</div>
+    </div>
+</div>
+<script>
+var availableTags = [];
+</script>
+		<script>
+			$j(".add_init").click(function(){
+				addElement('init', '_new_');
+			})
+			$j(".add_proc").click(function(){
+				addElement('process', '_new_');
+			})
+			$j("#convert").click(function(){
+				var xml = prepereXML();
+				window.location.href="/engines/update_config?engine_settings="+xml;
+				})
+			
+		</script>

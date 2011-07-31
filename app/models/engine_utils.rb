@@ -55,6 +55,7 @@ class EngineUtils
           node.method  = node_var['method']
           node.controltype  = node_var['controltype']
           node.condition  = node_var['condition']
+          node_alternatives_xml_to_ssdl(node)
           ssdl.nodes << node
         end 
       else
@@ -104,6 +105,7 @@ class EngineUtils
         node.method  = graph['nodes']['node']['method']
         node.controltype  = graph['nodes']['node']['controltype']
         node.condition  = graph['nodes']['node']['condition']
+        self.node_alternatives_xml_to_ssdl(node)
         ssdl.nodes << node
       end
       
@@ -221,6 +223,7 @@ def self.ssdl_struct_to_xml(struct)
             xml_build.method(node.method)
             xml_build.controltype(node.controltype)
             xml_build.condition(node.condition)
+            node_alternatives_ssdl_to_xml(node, xml_build)
           }
         end
       }
@@ -340,6 +343,151 @@ end
     
   end
 
+  
+  def self.node_alternatives_xml_to_ssdl(source_node)
+    if(!source_node['alternatives'].nil?)
+      source_node.alternatives = Array.new
+      if(source_node['alternatives']['node'].is_a? Array)
+        source_node['alternatives']['node'].each do |node_var|
+          node = SmartServiceNode.new
+          node.name = node_var['name']
+          node.nodeclass = node_var['class']
+          node.nodetype  = node_var['nodetype']
+          node.inputs = Array.new
+          if(node_var['inputs']['input'].is_a? Array)
+            node_var['inputs']['input'].each do |input_var|
+              variable = SmartServiceInput.new
+              variable.metaname = input_var['metaname']
+              variable.name = input_var['name']
+              variable.type = input_var['type']
+              variable.source = input_var['source']
+              node.inputs << variable
+            end
+          else
+            variable = SmartServiceInput.new
+            variable.metaname = node_var['inputs']['input']['metaname']
+            variable.name = node_var['inputs']['input']['name']
+            variable.type = node_var['inputs']['input']['type']
+            variable.source = node_var['inputs']['input']['source']
+            node.inputs << variable
+          end
+          
+          node.outputs = Array.new
+          if(node_var['outputs']['output'].is_a? Array)
+            node_var['outputs']['output'].each do |output_var|
+              variable = SmartServiceOutput.new
+              variable.metaname = output_var['metaname']
+              variable.name = output_var['name']
+              variable.type = output_var['type']
+              node.outputs << variable
+            end
+          else
+            variable = SmartServiceOutput.new
+            variable.metaname = node_var['outputs']['output']['metaname']
+            variable.name = node_var['outputs']['output']['name']
+            variable.type = node_var['outputs']['output']['type']
+            node.outputs << variable
+          end
+          #node.preconditions  = graph['nodes']['node']['name']
+          #node.effects  = graph['nodes']['node']['name']
+          node.address  = node_var['address']
+          node.method  = node_var['method']
+          node.controltype  = node_var['controltype']
+          node.condition  = node_var['condition']
+          source_node.alternatives << node
+        end 
+      else
+        node = SmartServiceNode.new
+        node.name = source_node['alternatives']['node']['name']
+        node.class  = source_node['alternatives']['node']['class']
+        node.nodetype  = source_node['alternatives']['node']['nodetype']
+        node.inputs = Array.new
+        if(source_node['alternatives']['node']['inputs']['input'].is_a? Array)
+          source_node['alternatives']['node']['inputs']['input'].each do |input_var|
+            variable = SmartServiceInput.new
+            variable.metaname = input_var['metaname']
+            variable.name = input_var['name']
+            variable.type = input_var['type']
+            variable.source = input_var['source']
+            node.inputs << variable
+          end
+        else
+          variable = SmartServiceInput.new
+          variable.metaname = source_node['alternatives']['node']['inputs']['input']['metaname']
+          variable.name = source_node['alternatives']['node']['inputs']['input']['name']
+          variable.type = source_node['alternatives']['node']['inputs']['input']['type']
+          variable.source = source_node['alternatives']['node']['inputs']['input']['source']
+          node.inputs << variable
+        end
+        
+        node.outputs = Array.new
+        if(source_node['alternatives']['node']['outputs']['output'].is_a? Array)
+          source_node['alternatives']['node']['outputs']['output'].each do |output_var|
+            variable = SmartServiceOutput.new
+            variable.metaname = output_var['metaname']
+            variable.name = output_var['name']
+            variable.type = output_var['type']
+            node.outputs << variable
+          end
+        else
+          variable = SmartServiceOutput.new
+          variable.metaname = source_node['alternatives']['node']['outputs']['output']['metaname']
+          variable.name = source_node['alternatives']['node']['outputs']['output']['name']
+          variable.type = source_node['alternatives']['node']['outputs']['output']['type']
+          node.outputs << variable
+        end
+        #node.preconditions  = graph['nodes']['node']['name']
+        #node.effects  = graph['nodes']['node']['name']
+        node.address  = source_node['alternatives']['node']['address']
+        node.method  = source_node['alternatives']['node']['method']
+        node.controltype  = source_node['alternatives']['node']['controltype']
+        node.condition  = source_node['alternatives']['node']['condition']
+        source_node.alternatives << node
+      end
+    end
+  end
+  
+  def self.node_alternatives_ssdl_to_xml(node, xml_build)
+    
+    if(!node.alternatives.nil?)
+      xml_build.alternatives{
+        node.alternatives.each do |node|
+          xml_build.node {
+            xml_build.name(node.name)
+            xml_build.class(node.nodeclass)
+            xml_build.nodetype(node.nodetype)
+            xml_build.inputs {
+              node.inputs.each do |input|
+                xml_build.input {
+                  xml_build.metaname(input.metaname)
+                  xml_build.name(input.name)
+                  xml_build.type(input.type)
+                  xml_build.source(input.source)
+                }
+              end
+            }
+            xml_build.outputs {
+              node.outputs.each do |output|
+                xml_build.output {
+                  xml_build.metaname(output.metaname)
+                  xml_build.name(output.name)
+                  xml_build.type(output.type)
+                }
+              end
+            }
+            xml_build.preconditions("")
+            xml_build.effects("")
+            xml_build.address(node.address)
+            xml_build.method(node.method)
+            xml_build.controltype(node.controltype)
+            xml_build.condition(node.condition)
+          }
+        end
+      }
+    end
+  
+  
+  end
   
 #  def self.get_input_variable_value(value, type)
 #    case type

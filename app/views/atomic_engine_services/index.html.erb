@@ -1,14 +1,19 @@
 <% title "Composition Services Repository" %>
-<h1>Composition Services Repository</h1>
-<div style="width:70%; height:100%; float:left;">
-<table id=services_list>
-</table>
-<div id=services_pager>
+<div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <%= render :partial => "layouts/config_tabs" %>
+    <div id="content_container" class="ui-tabs-panel ui-widget-content ui-corner-bottom" style="background-color:white">
+        <h1>Composition Services Repository</h1>
+        <div style="width:70%; height:100%; float:left;">
+        <table id=services_list>
+        </table>
+        <div id=services_pager>
+        </div>
+        <%= services_jqgrid %>
+        </br>
+    </div>
+    <div class = "clear">
+    </div>
 </div>
-<%= services_jqgrid %>
-</br>
-</div>
-<div class = "clear">
 </div>
 <% content_for :head do %>
 <script type="text/javascript">

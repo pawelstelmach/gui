@@ -55,12 +55,12 @@
  	<li id="concepts" class="<%= @page_id == "ontologies" ? "ui-state-default ui-corner-top ui-tabs-selected ui-state-active" : "ui-state-default ui-corner-top" %>">
  		<%= link_to "Ontologies", ontologies_path %>
 		</li>
-	<li id="settings" class="<%= @page_id == "settings" ? "ui-state-default ui-corner-top ui-tabs-selected ui-state-active" : "ui-state-default ui-corner-top" %>" style="float:right; padding: 0 0.1em 0 0.1em;">
+	<li id="settings" class="<%= @page_id == "engine" ? "ui-state-default ui-corner-top ui-tabs-selected ui-state-active" : "ui-state-default ui-corner-top" %>" style="float:right;">
 		<%= link_to "Engine", edit_engine_path(current_user) %>
 	</li>
 	 
  	</ul> 
-	  <div id="content_container" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+	  <div id="content_container" class="ui-tabs-panel ui-widget-content ui-corner-bottom" <%= @page_id=="engine" ? "style='background-color:#fffdc0'" : ""%>>
             <%- flash.each do |name, msg| -%>
             	<%= content_tag :div, msg, :id => "flash_#{name}" %>
             <%- end -%>			

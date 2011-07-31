@@ -378,3 +378,21 @@ border-spacing: 0 1em;
 .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected {padding-bottom: 0em; padding-left: 0em; background: none; background-color: #FFFFCC; border-left-width: 1px; border-left-color: white; margin: 0 0 .3em -0.2em; }
 .ui-tabs-vertical .ui-tabs-panel { padding: 1em; margin: -.2em 0 -.2em 0; float: right; width: 70%; background-color: #FFFFCC; border-color: black; border-width: 1px;}
 .ui-tabs-panel {min-height: 18em;}
+
+.ui-tabs .ui-tabs-nav #settings.ui-tabs-selected {background: none; background-color: #fffdc0;}
+
+.ui-widget-header-conf { border: 1px solid #e78f08; background: #f6a828 url(/images/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
+.ui-widget-header-conf a { color: #ffffff; }
+
+/* Interaction states
+----------------------------------*/
+.ui-widget-content-conf .ui-state-default, .ui-widget-header-conf .ui-state-default { border: 1px solid #cccccc; background: #f6f6f6 url(/images/ui-lightness/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #1c94c4; }
+.ui-widget-content-conf .ui-state-hover, .ui-widget-header-conf .ui-state-hover, .ui-widget-content-conf .ui-state-focus, .ui-widget-header-conf .ui-state-focus { border: 1px solid #fbcb09; background: #fdf5ce url(/images/ui-lightness/ui-bg_glass_100_fdf5ce_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #c77405; }
+.ui-widget-content-conf .ui-state-active, .ui-widget-header-conf .ui-state-active { border: 1px solid #fbd850; background: #ffffff url(/images/ui-lightness/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #eb8f00; }
+
+
+/* Interaction Cues
+----------------------------------*/
+.ui-widget-content-conf .ui-state-highlight, .ui-widget-header-conf .ui-state-highlight  {border: 1px solid #fed22f; background: #ffe45c url(/images/ui-lightness/ui-bg_highlight-soft_75_ffe45c_1x100.png) 50% top repeat-x; color: #363636; }
+.ui-widget-content-conf .ui-state-highlight a,.ui-widget-header-conf .ui-state-highlight a { color: #363636; }
+.ui-widget-content-conf .ui-state-error, .ui-widget-header-conf .ui-state-error {border: 1px solid #cd0a0a; background: #b81900 url(/images/ui-lightness/ui-bg_diagonals-thick_18_b81900_40x40.png) 50% 50% repeat; color: #ffffff; }

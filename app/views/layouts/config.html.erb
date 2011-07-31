@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <title><%= h(yield(:title) || "Smart Service Workbench") %></title>
-		<%= stylesheet_link_tag 'jquery/ui-lightness/jquery-ui-1.8.13.custom.css' %>
+		<%= stylesheet_link_tag 'jquery/ui-lightness/jquery-ui-1.8.14.custom.css' %>
   		<%= stylesheet_link_tag 'jquery/ui.jqgrid.css' %>
 		<%= stylesheet_link_tag 'jquery/jquery.ui.tabs.css' %>
         <%= stylesheet_link_tag 'application', 'formtastic', 'formtastic_changes' %>
@@ -14,6 +14,10 @@
 		<%= javascript_include_tag 'jquery/jquery.ui.widget.js' %>
 		<%= javascript_include_tag 'jquery/jquery.ui.core.js' %>
 		<%= javascript_include_tag 'jquery/jquery.ui.accordion.js' %>
+		<%= javascript_include_tag 'jquery/jquery.ui.mouse.js' %>
+        <%= javascript_include_tag 'jquery/jquery.ui.draggable.js' %>
+        <%= javascript_include_tag 'jquery/jquery.ui.droppable.js' %>
+        <%= javascript_include_tag 'jquery/jquery.ui.sortable.js' %>
 		<script>$j = jQuery.noConflict();</script>
 		<script type='text/javascript' src='http://www.google.com/jsapi'></script> 
 	    <script type="text/javascript">
