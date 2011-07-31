@@ -1,0 +1,17 @@
+<% title "SSW Application Configuration" %>
+<div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <%= render :partial => "layouts/config_tabs" %>
+    <div id="content_container" class="ui-tabs-panel ui-widget-content ui-corner-bottom" style="background-color:white">
+   
+        <h1>SSW Engine Configuration</h1>
+        <% form_for @user do |f| %>
+        <%= label_tag(:engine_settings, "Configuration XML:") %>
+        <br/>
+        <%= f.text_area :engine_settings, :size => "100x20" %>
+        <br/>
+        <br/>
+        <%= submit_tag "Save" %>
+        <% end %>
+		
+    </div>
+</div>

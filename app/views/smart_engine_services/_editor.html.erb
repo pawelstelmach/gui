@@ -1,0 +1,204 @@
+<style>
+    h6 {
+        padding: .2em;
+        margin: 0;
+        font-size: large;
+    }
+    
+	#complex_service
+	{
+		float: left;
+        width: 22em;
+        margin-right: 2em;
+	}
+    
+    
+    #products {
+        width: 27em;
+        float: left;
+    }
+    
+    #cart ol {
+        margin: 0;
+        padding: 1em 0 1em 2em;
+    }
+    
+    #cart li {
+        display: block;
+        margin: 0.5em 0 0.5em 0;
+    }
+	
+	#products li {
+        display: block;
+        margin: 0.5em 0 0.5em 0;
+    }
+	
+	.element {
+		width: 17em;
+	}
+</style>
+<script>
+    $j(function(){
+        $j("#catalog").accordion({
+			autoHeight: false,
+		});
+        $j("#catalog li").draggable({
+            appendTo: "body",
+            helper: "clone"
+        });
+        $j("#cart ol").droppable({
+            activeClass: "ui-state-default",
+            hoverClass: "ui-state-hover",
+            accept: ":not(.ui-sortable-helper)",
+            drop: function(event, ui){
+                $j(this).find(".placeholder").remove();
+                $j("<li class='element' value='" + ui.draggable.attr('id') + "'></li>").text(ui.draggable.text()).appendTo(this);
+                $j("li", this).button();
+
+            }
+        }).sortable({
+            items: "li:not(.placeholder)",
+            sort: function(){
+                // gets added unintentionally by droppable interacting with sortable
+                // using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
+                $j(this).removeClass("ui-state-default");
+            },
+			connectWith: "#recycle_bin ul"
+        });
+		$j("#recycle_bin ul").sortable({
+            items: "li:not(.placeholder)",
+            sort: function(){
+                // gets added unintentionally by droppable interacting with sortable
+                // using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
+                $j(this).removeClass("ui-state-default");
+            },
+			receive: function(event, ui) {
+				ui.item.hide('explode', function(){ ui.item.remove() });
+	
+			}
+        });
+    });
+    $j(function(){
+        $j(".element").button();
+        $j(".placeholder").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover")
+    });
+	
+	        
+	
+</script>
+<h1>New Engine Smart Service</h1>
+<div class="demo">
+	<div id="complex_service">
+    <div style="margin-bottom: 1em" id="cart">
+        <h6 class="ui-widget-header ui-corner-top">
+        Composition Service</h1>
+        <div class="ui-widget-content">
+            <form id="comp_serv">
+                <ol style="list-style-type: none;">
+                    <% if @nodes.empty? %>
+                    <li class="placeholder" style="font-style:italic;">
+                        Add your items here
+                    </li>
+                    <% else %>
+                    <% @nodes.each do |n| %>
+                    <li class="element" value="<%= n[:id] %>">
+                        <%= n[:name] %>
+                    </li>
+                    <% end %>
+                    <% end %>
+                </ol>
+            </form>
+        </div>
+    </div>
+<div id="recycle_bin">
+        <div style="text-align:right;">
+		<div style="width:200px; float:right;">
+                <ul class="ui-sortable" style="list-style-type: none; background-image: url(/images/trash_empty.png); background-repeat:no-repeat; background-position: right; height: 80px; width: 160px;text-align:right; margin-right: 10px;"></ul> 
+        </div>
+		</div>
+    </div>
+	</div>
+    <div id="products">
+        <h6 class="ui-widget-header ui-corner-top">
+        Atomic Services</h1>
+        <div id="catalog">
+            <% @atomic_services.each do |k, v| %>
+            <h3 style="font-size:small;"><a href="#"><%= k %></a></h3>
+            <div>
+                <ul>
+                    <% v.each do |s| %>
+                    <li class="element" id="<%= s.id.to_s %>">
+                        <%= s.name %>
+                    </li>
+                    <% end %>
+                </ul>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<div id="dialog-form" title="Smart Service Test">
+<label for="name">
+    Name:
+</label>
+</br>
+<input type="text" id="name" id="description" value="<%= @name %>">
+</input>
+</br>
+</br>
+<label for="description">
+    Description:
+</label>
+</br>
+<textarea id="description" name="description" value="<%= @description %>">
+</textarea>
+</br>
+</br>
+<button id='save_confirm'>
+    Save
+</button>
+<button id='save_cancel'>
+    Cancel
+</button>
+</div>
+<div class = "clear">
+</div>
+<button id='save'>
+    Save
+</button>
+<script>
+    $j('#save').click(function(){
+        $j("#dialog-form").dialog("open");
+    });
+    
+    $j(function(){
+        $j('#save_confirm').click(function(){
+            var datastring = "";
+            $j('ol li').each(function(index){
+                if (index > 0) {
+                    datastring = datastring + "&"
+                }
+                datastring = datastring + "services[]=" + $j(this).attr('value');
+            });
+            datastring = datastring + "&name=" + $j('#name').val() + "&description=" + $j('#description').val()
+            window.location.href = "<%= @action %>" + "?" + datastring;
+            
+        });
+    });
+    
+    $j(function(){
+    
+        $j('#save_cancel').click(function(){
+            $j("#dialog-form").dialog("close");
+        });
+    });
+    
+    $j(function(){
+        $j("#dialog-form").dialog({
+            autoOpen: false,
+            modal: true,
+            show: "blind",
+            hide: "explode"
+        });
+    });
+</script>

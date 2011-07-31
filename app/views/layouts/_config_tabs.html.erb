@@ -1,0 +1,13 @@
+<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header-conf ui-corner-all">
+ 	<li id="config" class="<%= @config_page_id == "config" ? "ui-state-default ui-corner-top ui-tabs-selected ui-state-active" : "ui-state-default ui-corner-top"%>">
+ 		<%= link_to "Engine Configuration", edit_engine_path(current_user) %>
+		</li>
+ 	<li id="services" class="<%= @config_page_id == "services" ? "ui-state-default ui-corner-top ui-tabs-selected ui-state-active" : "ui-state-default ui-corner-top" %>">
+ 		<%= link_to "Smart Composition Services", smart_engine_services_path %>
+		</li>
+ 	<li id="repository" class="<%= @config_page_id == "repository" ? "ui-state-default ui-corner-top ui-tabs-selected ui-state-active" : "ui-state-default ui-corner-top" %>">
+ 		<%= link_to "Repository", atomic_engine_services_path %>
+		</li>
+	 
+ 	</ul>
+<script></script>
