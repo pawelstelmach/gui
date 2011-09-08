@@ -207,7 +207,9 @@ def compose
     @experiment.save
     @is_successfull = true
     status = 200
-  rescue
+  rescue => e
+  puts e.message
+  puts e.backtrace
     @is_successfull = false
     status = 503
   end
@@ -273,6 +275,7 @@ def engine_init(smartservicegraph, engine_settings)
     smartservicegraph = composition_result.values.first    
     smartservicegraph.inputdata = @input_data    
   end
+  
   return smartservicegraph
 end
 

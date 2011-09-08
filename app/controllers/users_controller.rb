@@ -9,6 +9,7 @@ end
 
 def create
   @user = User.new(params[:user])
+  @user = "<config><init></init><process></process></config>"
   if @user.save
     @user.create_default_settings
     flash[:notice] = "Profile successfully created."

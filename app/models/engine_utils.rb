@@ -15,6 +15,7 @@ class EngineUtils
           node.nodeclass = node_var['class']
           node.nodetype  = node_var['nodetype']
           node.inputs = Array.new
+          if(!node_var['inputs'].nil?)
           if(node_var['inputs']['input'].is_a? Array)
             node_var['inputs']['input'].each do |input_var|
               variable = SmartServiceInput.new
@@ -25,14 +26,17 @@ class EngineUtils
               node.inputs << variable
             end
           else
+            if(node_var['inputs']['input']!=nil)
             variable = SmartServiceInput.new
             variable.metaname = node_var['inputs']['input']['metaname']
             variable.name = node_var['inputs']['input']['name']
             variable.type = node_var['inputs']['input']['type']
             variable.source = node_var['inputs']['input']['source']
             node.inputs << variable
+            end
           end
-          
+          end
+          if(!node_var['outputs'].nil?)
           node.outputs = Array.new
           if(node_var['outputs']['output'].is_a? Array)
             node_var['outputs']['output'].each do |output_var|
@@ -43,11 +47,38 @@ class EngineUtils
               node.outputs << variable
             end
           else
+            if(node_var['outputs']['output']!=nil)
             variable = SmartServiceOutput.new
             variable.metaname = node_var['outputs']['output']['metaname']
             variable.name = node_var['outputs']['output']['name']
             variable.type = node_var['outputs']['output']['type']
             node.outputs << variable
+            end
+          end
+          end
+          if(!node_var['nonfunctionalities'].nil?)
+            node.nonfunctionalities = Array.new
+            if(node_var['nonfunctionalities']['nonfunctionality'].is_a? Array)
+              node_var['nonfunctionalities']['nonfunctionality'].each do |qos_var|
+                variable = SmartServiceQosParameter.new
+                variable.name = qos_var['name']
+                variable.unit = qos_var['unit']
+                variable.value = qos_var['value']
+                variable.weight = qos_var['weight']
+                variable.relation = qos_var['relation']
+                node.nonfunctionalities << variable
+              end
+            else
+              if(node_var['nonfunctionalities']['nonfunctionality']!=nil)
+              variable = SmartServiceQosParameter.new
+                variable.name = node_var['nonfunctionalities']['nonfunctionality']['name']
+                variable.unit = node_var['nonfunctionalities']['nonfunctionality']['unit']
+                variable.value = node_var['nonfunctionalities']['nonfunctionality']['value']
+                variable.weight = node_var['nonfunctionalities']['nonfunctionality']['weight']
+                variable.relation = node_var['nonfunctionalities']['nonfunctionality']['relation']
+                node.nonfunctionalities << variable
+              end
+            end
           end
           #node.preconditions  = graph['nodes']['node']['name']
           #node.effects  = graph['nodes']['node']['name']
@@ -55,6 +86,7 @@ class EngineUtils
           node.method  = node_var['method']
           node.controltype  = node_var['controltype']
           node.condition  = node_var['condition']
+          node.description = node_var['description']
           node_alternatives_xml_to_ssdl(node)
           ssdl.nodes << node
         end 
@@ -148,17 +180,29 @@ class EngineUtils
     
     if(!graph['qos'].nil?)
       ssdl.qos = SmartServiceQos.new
-      ssdl.qos.cost = SmartServiceQosParameter.new
-      ssdl.qos.cost.weight = graph['qos']['cost']['weight']
-      ssdl.qos.cost.unit = graph['qos']['cost']['unit']
-      ssdl.qos.cost.value = graph['qos']['cost']['value']
-      ssdl.qos.cost.relation = graph['qos']['cost']['relation']
-      
+      if(!graph['qos']['cost'].nil?)
+        ssdl.qos.cost = SmartServiceQosParameter.new
+        ssdl.qos.cost.weight = graph['qos']['cost']['weight']
+        ssdl.qos.cost.unit = graph['qos']['cost']['unit']
+        ssdl.qos.cost.value = graph['qos']['cost']['value']
+        ssdl.qos.cost.relation = graph['qos']['cost']['relation']
+      end
+  
+      if(!graph['qos']['time'].nil?)
+        ssdl.qos.time = SmartServiceQosParameter.new
+        ssdl.qos.time.weight = graph['qos']['time']['weight']
+        ssdl.qos.time.unit = graph['qos']['time']['unit']
+        ssdl.qos.time.value = graph['qos']['time']['value']
+        ssdl.qos.time.relation = graph['qos']['time']['relation']
+      end
+    
       ssdl.qos.time = SmartServiceQosParameter.new
-      ssdl.qos.time.weight = graph['qos']['time']['weight']
-      ssdl.qos.time.unit = graph['qos']['time']['unit']
-      ssdl.qos.time.value = graph['qos']['time']['value']
-      ssdl.qos.time.relation = graph['qos']['time']['relation']
+      if(!graph['qos']['dexterity'].nil?)
+        ssdl.qos.time.weight = graph['qos']['dexterity']['weight']
+        ssdl.qos.time.unit = graph['qos']['dexterity']['unit']
+        ssdl.qos.time.value = graph['qos']['dexterity']['value']
+        ssdl.qos.time.relation = graph['qos']['dexterity']['relation']
+      end
     end
     
     if(!graph['mediators'].nil?)
@@ -199,6 +243,7 @@ def self.ssdl_struct_to_xml(struct)
             xml_build.class(node.nodeclass)
             xml_build.nodetype(node.nodetype)
             xml_build.inputs {
+              unless node.inputs.nil?
               node.inputs.each do |input|
                 xml_build.input {
                   xml_build.metaname(input.metaname)
@@ -207,8 +252,10 @@ def self.ssdl_struct_to_xml(struct)
                   xml_build.source(input.source)
                 }
               end
+              end
             }
             xml_build.outputs {
+              unless node.outputs.nil?
               node.outputs.each do |output|
                 xml_build.output {
                   xml_build.metaname(output.metaname)
@@ -216,7 +263,22 @@ def self.ssdl_struct_to_xml(struct)
                   xml_build.type(output.type)
                 }
               end
+              end
             }
+            if(!node.nonfunctionalities.nil?)
+              xml_build.nonfunctionalities {
+                node.nonfunctionalities.each do |nonfun|
+                  xml_build.nonfunctionality {
+                    xml_build.name(nonfun.name)
+                    xml_build.unit(nonfun.unit)
+                    xml_build.value(nonfun.value)
+                    xml_build.weight(nonfun.weight)
+                    xml_build.relation(nonfun.relation)
+                  }
+              end
+              }
+            end
+            
             xml_build.preconditions("")
             xml_build.effects("")
             xml_build.address(node.address)
@@ -256,18 +318,30 @@ def self.ssdl_struct_to_xml(struct)
     end
     if(!struct.qos.nil?)
       xml_build.qos {
+        if(!struct.qos.time.nil?)
         xml_build.time {
           xml_build.relation(struct.qos.time.relation)
           xml_build.value(struct.qos.time.value)
           xml_build.unit(struct.qos.time.unit)
           xml_build.weight(struct.qos.time.weight)
           }
+        end
+        if(!struct.qos.cost.nil?)
           xml_build.cost {
             xml_build.relation(struct.qos.cost.relation)
             xml_build.value(struct.qos.cost.value)
             xml_build.unit(struct.qos.cost.unit)
             xml_build.weight(struct.qos.cost.weight)
           }
+        end
+#        if(!struct.qos.dexterity.nil?)
+#          xml_build.dexterity {
+#            xml_build.relation(struct.qos.dexterity.relation)
+#            xml_build.value(struct.qos.dexterity.value)
+#            xml_build.unit(struct.qos.dexterity.unit)
+#            xml_build.weight(struct.qos.dexterity.weight)
+#          }
+#        end
       }
     end
     if(!struct.mediators.nil?)

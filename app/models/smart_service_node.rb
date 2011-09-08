@@ -18,4 +18,5 @@ class SmartServiceNode < ActionWebService::Struct
   member :succesful, :double
   member :reputation, :double
   member :frequency, :double
+  member :nonfunctionalities, [SmartServiceQosParameter]
 end

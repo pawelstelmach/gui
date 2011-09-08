@@ -3,4 +3,5 @@ class SmartServiceQosParameter < ActionWebService::Struct
   member :unit, :string
   member :value, :float
   member :relation, :string
+  member :name, :string
 end

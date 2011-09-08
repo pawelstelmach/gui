@@ -235,16 +235,19 @@ def execute_service(address, method_name, requires, data_variable, *args)
    
     if params['c']!=nil
      puts params['c']
-     end
-      data = Kernel::eval "service."+method_name+"("+params_string+")" 
+    end
      begin
-    #data = eval "service."+method_name+"(*args)"
-       is_success = true
-     rescue
-    puts "ERROR!!"
+      data = Kernel::eval "service."+method_name+"("+params_string+")" 
+      #data = eval "service."+method_name+"(*args)"
+      is_success = true
+     rescue => e
+       puts e.message
+       puts e.backtrace
+       puts "ERROR!!"
        data = nil
        is_success = false
-     end      
+      end
+      puts data.inspect      
       return {data_variable => data}
   end  
 #added and important
